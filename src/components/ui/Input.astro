@@ -1,0 +1,147 @@
+---
+interface Props {
+  type?: string;
+  name: string;
+  id?: string;
+  placeholder?: string;
+  required?: boolean;
+  value?: string;
+  class?: string;
+  label?: string;
+  error?: string;
+  helperText?: string;
+  iconLeft?: any;
+  iconRight?: any;
+  showPasswordToggle?: boolean;
+  state?: 'default' | 'error' | 'success';
+}
+
+const {
+  type = 'text',
+  name,
+  id = name,
+  placeholder,
+  required = false,
+  value = '',
+  class: className = '',
+  label,
+  error,
+  helperText,
+  iconLeft,
+  iconRight,
+  showPasswordToggle = false,
+  state = error ? 'error' : 'default'
+} = Astro.props;
+
+const baseClasses = 'w-full px-4 py-3 rounded-lg border-2 outline-none transition-all duration-200 bg-white text-stone-800';
+const stateClasses = {
+  default: 'border-slate-300 focus:border-slate-700 focus:ring-2 focus:ring-slate-200',
+  error: 'border-red-500 focus:border-red-500 focus:ring-2 focus:ring-red-200',
+  success: 'border-emerald-500 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-200'
+};
+
+const hasLeftIcon = iconLeft || false;
+const hasRightIcon = iconRight || showPasswordToggle;
+const paddingClasses = hasLeftIcon ? 'pl-11' : hasRightIcon ? 'pr-11' : '';
+---
+
+<div class="flex flex-col gap-2">
+  {label && (
+    <label for={id} class="text-sm font-medium text-stone-700">
+      {label}
+      {required && <span class="text-red-500 ml-1">*</span>}
+    </label>
+  )}
+
+  <div class="relative">
+    {iconLeft && (
+      <div class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none">
+        <slot name="icon-left" />
+      </div>
+    )}
+
+    <input
+      type={showPasswordToggle ? 'password' : type}
+      name={name}
+      id={id}
+      placeholder={placeholder}
+      required={required}
+      value={value}
+      data-password-input={showPasswordToggle ? 'true' : undefined}
+      class:list={[baseClasses, stateClasses[state], paddingClasses, className]}
+    />
+
+    {showPasswordToggle && (
+      <button
+        type="button"
+        class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-700 transition-colors"
+        data-password-toggle
+        aria-label="Toggle password visibility"
+      >
+        <svg class="w-5 h-5" data-eye-icon fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+        </svg>
+        <svg class="w-5 h-5 hidden" data-eye-off-icon fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+        </svg>
+      </button>
+    )}
+
+    {iconRight && !showPasswordToggle && (
+      <div class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none">
+        <slot name="icon-right" />
+      </div>
+    )}
+  </div>
+
+  {error && (
+    <span class="text-sm text-red-600 animate-fade-in">{error}</span>
+  )}
+
+  {helperText && !error && (
+    <span class="text-sm text-slate-500">{helperText}</span>
+  )}
+</div>
+
+<style>
+  @import "tailwindcss" reference;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.2s ease-out;
+  }
+</style>
+
+{showPasswordToggle && (
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggleButtons = document.querySelectorAll('[data-password-toggle]');
+
+      toggleButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          const input = button.parentElement?.querySelector('[data-password-input]') as HTMLInputElement;
+          const eyeIcon = button.querySelector('[data-eye-icon]');
+          const eyeOffIcon = button.querySelector('[data-eye-off-icon]');
+
+          if (input && eyeIcon && eyeOffIcon) {
+            const isPassword = input.type === 'password';
+            input.type = isPassword ? 'text' : 'password';
+            eyeIcon.classList.toggle('hidden');
+            eyeOffIcon.classList.toggle('hidden');
+          }
+        });
+      });
+    });
+  </script>
+)}

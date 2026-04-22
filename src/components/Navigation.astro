@@ -1,0 +1,250 @@
+---
+import { Menu, X, User as UserIcon } from '@lucide/astro';
+import { getUserFromCookies } from '../lib/auth';
+
+const user = getUserFromCookies(Astro.cookies);
+const currentPath = Astro.url.pathname;
+
+const navLinks = [
+  { href: '/', label: 'Inicio' },
+  { href: '/cabana', label: 'La Cabaña' },
+  { href: '/precios', label: 'Precios' },
+  { href: '/ubicacion', label: 'Ubicación' }
+];
+---
+
+<nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-lg shadow-sm transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-24 transition-all duration-300" id="nav-container">
+      <!-- Logo -->
+      <div class="flex-shrink-0 transition-all duration-300" id="logo-container">
+        <a href="/" class="group flex items-center gap-3">
+          <img
+            src="/logo.png"
+            alt="Cabaña Quinta El Cielo"
+            id="nav-logo"
+            class="h-16 md:h-20 w-auto transition-all duration-300 group-hover:scale-105"
+          />
+        </a>
+      </div>
+
+      <!-- Desktop Navigation -->
+      <div class="hidden lg:flex items-center gap-2">
+        {navLinks.map(link => {
+          const isActive = currentPath === link.href;
+          return (
+            <a
+              href={link.href}
+              class:list={[
+                'relative px-4 py-2 text-[15px] font-light tracking-wide transition-all duration-200 rounded-lg group',
+                isActive
+                  ? 'text-stone-900 font-medium'
+                  : 'text-stone-600 hover:text-stone-900 hover:bg-stone-50'
+              ]}
+            >
+              {link.label}
+              {isActive && (
+                <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 bg-stone-900 rounded-full"></span>
+              )}
+            </a>
+          );
+        })}
+      </div>
+
+      <!-- User Menu / Auth Buttons -->
+      <div class="hidden lg:flex items-center gap-3">
+        {user ? (
+          <div class="flex items-center gap-3">
+            <a
+              href="/perfil"
+              class="flex items-center gap-2 px-4 py-2 text-[15px] text-stone-600 hover:text-stone-900 hover:bg-stone-50 rounded-lg transition-all font-light"
+            >
+              <div class="w-8 h-8 rounded-full bg-stone-200 flex items-center justify-center">
+                <UserIcon class="w-4 h-4 text-stone-700" />
+              </div>
+              <span>{user.nombre.split(' ')[0]}</span>
+            </a>
+            <form action="/api/auth/logout" method="POST" class="inline">
+              <button
+                type="submit"
+                class="px-4 py-2 text-[15px] text-stone-500 hover:text-stone-700 hover:bg-stone-50 rounded-lg transition-all font-light"
+              >
+                Salir
+              </button>
+            </form>
+            <a
+              href="/reservar"
+              class="px-6 py-2.5 bg-stone-900 text-white text-[15px] font-medium hover:bg-stone-800 transition-all rounded-lg shadow-sm hover:shadow-md"
+            >
+              Reservar
+            </a>
+          </div>
+        ) : (
+          <div class="flex items-center gap-3">
+            <a
+              href="/login"
+              class="px-4 py-2 text-[15px] text-stone-600 hover:text-stone-900 hover:bg-stone-50 rounded-lg transition-all font-light"
+            >
+              Iniciar Sesión
+            </a>
+            <a
+              href="/reservar"
+              class="px-6 py-2.5 bg-stone-900 text-white text-[15px] font-medium hover:bg-stone-800 transition-all rounded-lg shadow-sm hover:shadow-md"
+            >
+              Reservar
+            </a>
+          </div>
+        )}
+      </div>
+
+      <!-- Mobile Menu Button -->
+      <button
+        id="mobile-menu-button"
+        class="lg:hidden p-2.5 text-stone-700 hover:text-stone-900 hover:bg-stone-50 rounded-lg transition-all"
+        aria-label="Toggle menu"
+      >
+        <Menu id="menu-icon" class="w-6 h-6" />
+        <X id="close-icon" class="w-6 h-6 hidden" />
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden lg:hidden border-t border-stone-200 bg-white/98 backdrop-blur-lg animate-slide-down">
+    <div class="px-4 py-6 space-y-1 max-h-[calc(100vh-6rem)] overflow-y-auto">
+      {navLinks.map(link => {
+        const isActive = currentPath === link.href;
+        return (
+          <a
+            href={link.href}
+            class:list={[
+              'block px-4 py-3 text-base transition-all rounded-lg',
+              isActive
+                ? 'text-stone-900 font-medium bg-stone-50'
+                : 'text-stone-600 hover:text-stone-900 hover:bg-stone-50 font-light'
+            ]}
+          >
+            {link.label}
+          </a>
+        );
+      })}
+
+      <div class="pt-4 mt-4 border-t border-stone-200 space-y-2">
+        {user ? (
+          <>
+            <a
+              href="/perfil"
+              class="flex items-center gap-3 px-4 py-3 text-base text-stone-600 hover:text-stone-900 hover:bg-stone-50 rounded-lg transition-all font-light"
+            >
+              <div class="w-10 h-10 rounded-full bg-stone-200 flex items-center justify-center">
+                <UserIcon class="w-5 h-5 text-stone-700" />
+              </div>
+              <span>{user.nombre}</span>
+            </a>
+            <form action="/api/auth/logout" method="POST">
+              <button
+                type="submit"
+                class="w-full text-left px-4 py-3 text-base text-stone-500 hover:text-stone-700 hover:bg-stone-50 rounded-lg transition-all font-light"
+              >
+                Cerrar Sesión
+              </button>
+            </form>
+            <a
+              href="/reservar"
+              class="block px-4 py-3.5 mt-2 bg-stone-900 text-white text-base font-medium text-center hover:bg-stone-800 transition-all rounded-lg shadow-sm"
+            >
+              Reservar
+            </a>
+          </>
+        ) : (
+          <>
+            <a
+              href="/login"
+              class="block px-4 py-3 text-base text-stone-600 hover:text-stone-900 hover:bg-stone-50 rounded-lg transition-all font-light"
+            >
+              Iniciar Sesión
+            </a>
+            <a
+              href="/reservar"
+              class="block px-4 py-3.5 mt-2 bg-stone-900 text-white text-base font-medium text-center hover:bg-stone-800 transition-all rounded-lg shadow-sm"
+            >
+              Reservar
+            </a>
+          </>
+        )}
+      </div>
+    </div>
+  </div>
+</nav>
+
+<style>
+  @import "tailwindcss" reference;
+
+  @keyframes slide-down {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-slide-down {
+    animation: slide-down 0.2s ease-out;
+  }
+
+  /* Smooth scroll behavior for nav changes */
+  #main-nav.scrolled {
+    @apply shadow-md;
+  }
+
+  #main-nav.scrolled #nav-container {
+    @apply h-20;
+  }
+
+  #main-nav.scrolled #nav-logo {
+    @apply h-12 md:h-14;
+  }
+</style>
+
+<script>
+  // Mobile menu toggle
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuIcon = document.getElementById('menu-icon');
+  const closeIcon = document.getElementById('close-icon');
+
+  mobileMenuButton?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+    menuIcon?.classList.toggle('hidden');
+    closeIcon?.classList.toggle('hidden');
+  });
+
+  // Close mobile menu when clicking outside
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    if (!mobileMenu?.contains(target) && !mobileMenuButton?.contains(target)) {
+      mobileMenu?.classList.add('hidden');
+      menuIcon?.classList.remove('hidden');
+      closeIcon?.classList.add('hidden');
+    }
+  });
+
+  // Scroll behavior for nav
+  let lastScroll = 0;
+  const nav = document.getElementById('main-nav');
+
+  window.addEventListener('scroll', () => {
+    const currentScroll = window.pageYOffset;
+
+    if (currentScroll > 50) {
+      nav?.classList.add('scrolled');
+    } else {
+      nav?.classList.remove('scrolled');
+    }
+
+    lastScroll = currentScroll;
+  });
+</script>

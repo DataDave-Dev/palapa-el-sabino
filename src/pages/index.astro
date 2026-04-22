@@ -1,11 +1,50 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Navigation from '../components/Navigation.astro';
+import Hero from '../components/Hero.astro';
+import Amenities from '../components/Amenities.astro';
 ---
 
 <Layout>
-	<Welcome />
+	<Navigation />
+	<Hero />
+	<Amenities />
+
+	<!-- CTA Section -->
+	<section class="py-24 bg-stone-100">
+		<div class="max-w-4xl mx-auto px-6 text-center">
+			<h2 class="text-4xl md:text-5xl font-light tracking-tight text-stone-800 mb-6">
+				¿Listo para escapar?
+			</h2>
+			<p class="text-lg text-stone-600 font-light mb-10 max-w-2xl mx-auto">
+				Reserva tu estancia en la Sierra de Arteaga
+			</p>
+			<div class="flex flex-col sm:flex-row gap-4 justify-center">
+				<a
+					href="/reservar"
+					class="px-8 py-4 bg-stone-800 text-white font-medium hover:bg-stone-900 transition-colors rounded"
+				>
+					Reservar Ahora
+				</a>
+				<a
+					href="/precios"
+					class="px-8 py-4 border border-stone-300 text-stone-700 hover:border-stone-700 hover:bg-stone-50 transition-colors rounded"
+				>
+					Ver Precios
+				</a>
+			</div>
+		</div>
+	</section>
+
+	<!-- Footer -->
+	<footer class="bg-stone-900 text-white py-16">
+		<div class="max-w-7xl mx-auto px-6 text-center">
+			<p class="text-stone-400 font-light mb-2">
+				Cabaña Quinta El Cielo
+			</p>
+			<p class="text-stone-500 text-sm font-light">
+				Sierra de Arteaga, Coahuila · 80 min desde Monterrey
+			</p>
+		</div>
+	</footer>
 </Layout>

@@ -12,6 +12,13 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^6.1.8"
+    "@astrojs/db": "^0.20.1",
+    "@astrojs/node": "^10.0.5",
+    "@lucide/astro": "^1.8.0",
+    "@tailwindcss/vite": "^4.2.4",
+    "astro": "^6.1.8",
+    "bcrypt": "^6.0.0",
+    "motion": "^12.38.0",
+    "tailwindcss": "^4.2.4"
   }
 }

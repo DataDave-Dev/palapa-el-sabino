@@ -1,23 +1,41 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Cabaña Quinta El Cielo - Renta de Cabaña en Sierra de Arteaga',
+  description = 'Cabaña para 15-20 personas en la Sierra de Arteaga a 3,550m de altitud. Vistas espectaculares, flora y fauna única. A 80 minutos de Monterrey.'
+} = Astro.props;
+---
+
 <!doctype html>
-<html lang="en">
+<html lang="es">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content={description} />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<title>{title}</title>
 	</head>
-	<body>
+	<body class="antialiased">
 		<slot />
 	</body>
 </html>
 
-<style>
-	html,
+<style is:global>
+	@import "../styles/global.css";
+
+	html {
+		scroll-behavior: smooth;
+	}
+
 	body {
 		margin: 0;
-		width: 100%;
-		height: 100%;
+		padding: 0;
+		min-height: 100vh;
 	}
 </style>

@@ -1,0 +1,102 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import Gallery from '../components/Gallery.astro';
+import Amenities from '../components/Amenities.astro';
+import { Mountain, Users, Home } from '@lucide/astro';
+---
+
+<Layout title="La Cabaña - Quinta El Cielo">
+  <Navigation />
+
+  <!-- Hero Section -->
+  <section class="pt-24 pb-16 bg-stone-50">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h1 class="text-5xl md:text-6xl font-light tracking-tight text-stone-800 mb-6">
+        La Cabaña
+      </h1>
+      <p class="text-xl text-stone-600 font-light mb-8">
+        Un refugio en la montaña para crear recuerdos inolvidables
+      </p>
+
+      <div class="flex flex-wrap justify-center gap-8 mt-12">
+        <div class="flex items-center gap-3 bg-white rounded-lg px-6 py-4 shadow-md border border-stone-200">
+          <Mountain class="w-8 h-8 text-stone-700" />
+          <div class="text-left">
+            <div class="text-2xl font-light text-stone-800">3,550m</div>
+            <div class="text-sm text-stone-600 font-light">Altitud</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 bg-white rounded-lg px-6 py-4 shadow-md border border-stone-200">
+          <Users class="w-8 h-8 text-stone-700" />
+          <div class="text-left">
+            <div class="text-2xl font-light text-stone-800">15-20</div>
+            <div class="text-sm text-stone-600 font-light">Personas</div>
+          </div>
+        </div>
+        <div class="flex items-center gap-3 bg-white rounded-lg px-6 py-4 shadow-md border border-stone-200">
+          <Home class="w-8 h-8 text-stone-700" />
+          <div class="text-left">
+            <div class="text-2xl font-light text-stone-800">4</div>
+            <div class="text-sm text-stone-600 font-light">Habitaciones</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Description -->
+  <section class="py-16 bg-white">
+    <div class="max-w-4xl mx-auto px-6">
+      <div class="prose prose-lg max-w-none">
+        <h2 class="text-3xl font-light tracking-tight text-stone-800 mb-6">Sobre la Cabaña</h2>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          La Cabaña Quinta El Cielo es un espacio único ubicado en la hermosa Sierra de Arteaga,
+          a 3,550 metros sobre el nivel del mar. Diseñada para alojar cómodamente de 15 a 20 personas,
+          es perfecta para reuniones familiares, retiros de amigos o escapadas especiales.
+        </p>
+        <p class="text-slate-600 leading-relaxed mb-4">
+          Con una vista espectacular hacia el cielo que permite contemplar las estrellas de una forma
+          única e inigualable, rodeada de gran variedad de flora y fauna, y un paisaje majestuoso que
+          te dejará sin aliento.
+        </p>
+        <p class="text-slate-600 leading-relaxed">
+          A solo 80 minutos del centro de Monterrey, con un camino de concreto hidráulico que permite
+          el acceso con cualquier tipo de vehículo. ¡La naturaleza nunca estuvo tan cerca!
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <Gallery />
+
+  <!-- Amenities -->
+  <Amenities />
+
+  <!-- CTA -->
+  <section class="py-24 bg-stone-100">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="text-4xl md:text-5xl font-light tracking-tight text-stone-800 mb-6">
+        ¿Te gustaría reservar?
+      </h2>
+      <p class="text-lg text-stone-600 font-light mb-10">
+        Consulta nuestros precios y disponibilidad
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/precios"
+          class="px-8 py-4 bg-stone-800 text-white font-medium hover:bg-stone-900 transition-colors rounded"
+        >
+          Ver Precios
+        </a>
+        <a
+          href="/reservar"
+          class="px-8 py-4 border border-stone-300 text-stone-700 hover:border-stone-700 hover:bg-stone-50 transition-colors rounded"
+        >
+          Reservar Ahora
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

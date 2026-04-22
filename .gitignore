@@ -1,6 +1,9 @@
 # build output
 dist/
 
+# IA Support
+.claude/*
+
 # generated types
 .astro/
 
