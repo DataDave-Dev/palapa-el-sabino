@@ -10,16 +10,18 @@ export default defineConfig({
   adapter: node({
     mode: 'standalone'
   }),
-  integrations: [db()],
+  integrations: [
+    db({
+      // Si hay variables de entorno de Turso, úsalas (producción)
+      // Si no, usa SQLite local (desarrollo)
+      ...(process.env.ASTRO_DATABASE_FILE && process.env.ASTRO_DB_AUTH_TOKEN && {
+        studio: false,
+        dbUrl: process.env.ASTRO_DATABASE_FILE,
+        authToken: process.env.ASTRO_DB_AUTH_TOKEN
+      })
+    })
+  ],
   vite: {
     plugins: [tailwindcss()]
-  },
-  db: {
-    // En desarrollo usa SQLite local
-    // En producción usa las variables de entorno
-    ...(process.env.ASTRO_DATABASE_FILE && {
-      dbUrl: process.env.ASTRO_DATABASE_FILE,
-      authToken: process.env.ASTRO_DB_AUTH_TOKEN
-    })
   }
 });
