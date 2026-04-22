@@ -1,9 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Card from '../components/ui/Card.astro';
-import Input from '../components/ui/Input.astro';
-import Button from '../components/ui/Button.astro';
-import { Lock, Mail, User, Phone } from '@lucide/astro';
+import Navigation from '../components/Navigation.astro';
 
 // Si ya está autenticado, redirigir
 import { getUserFromCookies } from '../lib/auth';
@@ -13,253 +10,301 @@ if (user) {
 }
 ---
 
-<Layout title="Registro - Cabaña Quinta El Cielo">
-  <div class="min-h-screen bg-stone-50 flex items-center justify-center p-4 py-12">
-    <div class="w-full max-w-md animate-fade-in">
-      <!-- Logo -->
-      <div class="text-center mb-8">
-        <img
-          src="/logo.png"
-          alt="Cabaña Quinta El Cielo"
-          class="h-20 md:h-24 w-auto mx-auto mb-6"
-        />
-        <h1 class="text-3xl font-light tracking-tight text-stone-800 mb-2">Crear Cuenta</h1>
-        <p class="text-stone-600 font-light">Regístrate para reservar tu estancia</p>
+<Layout title="Crear cuenta - Palapa El Sabino">
+  <Navigation />
+
+  <section class="auth-container">
+    <div class="auth-card">
+      <div class="auth-header">
+        <h1 class="auth-title">Crear cuenta</h1>
+        <p class="auth-subtitle">Únete para reservar tu estancia</p>
       </div>
 
-      <Card padding="lg">
-        <form id="registerForm" class="space-y-5">
-          <!-- Nombre Input -->
-          <div>
-            <Input
-              type="text"
-              name="nombre"
-              id="nombre"
-              label="Nombre completo"
-              placeholder="Juan Pérez"
-              required
-              iconLeft={true}
-            >
-              <User slot="icon-left" class="w-5 h-5" />
-            </Input>
-          </div>
+      <!-- Error Message -->
+      <div id="error-message" class="hidden"></div>
 
-          <!-- Email Input -->
-          <div>
-            <Input
-              type="email"
-              name="email"
-              id="email"
-              label="Correo electrónico"
-              placeholder="tu@email.com"
-              required
-              iconLeft={true}
-            >
-              <Mail slot="icon-left" class="w-5 h-5" />
-            </Input>
-          </div>
+      <form id="registerForm" class="auth-form">
+        <div class="form-group">
+          <label for="nombre" class="form-label">Nombre completo</label>
+          <input
+            type="text"
+            id="nombre"
+            name="nombre"
+            required
+            class="form-input"
+            placeholder="Juan Pérez"
+          />
+        </div>
 
-          <!-- Phone Input -->
-          <div>
-            <Input
-              type="tel"
-              name="telefono"
-              id="telefono"
-              label="Teléfono"
-              placeholder="8123456789"
-              required
-              iconLeft={true}
-            >
-              <Phone slot="icon-left" class="w-5 h-5" />
-            </Input>
-          </div>
+        <div class="form-group">
+          <label for="email" class="form-label">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            class="form-input"
+            placeholder="tu@email.com"
+          />
+        </div>
 
-          <!-- Password Input -->
-          <div>
-            <Input
-              type="password"
-              name="password"
-              id="password"
-              label="Contraseña"
-              placeholder="••••••••"
-              required
-              showPasswordToggle={true}
-              iconLeft={true}
-              helperText="Mínimo 6 caracteres"
-            >
-              <Lock slot="icon-left" class="w-5 h-5" />
-            </Input>
+        <div class="form-group">
+          <label for="telefono" class="form-label">Teléfono</label>
+          <input
+            type="tel"
+            id="telefono"
+            name="telefono"
+            required
+            class="form-input"
+            placeholder="81 1234 5678"
+          />
+        </div>
 
-            <!-- Password Strength Indicator -->
-            <div id="password-strength" class="mt-2 hidden">
-              <div class="flex gap-1 mb-1">
-                <div class="h-1 flex-1 rounded-full bg-slate-200" data-strength-bar></div>
-                <div class="h-1 flex-1 rounded-full bg-slate-200" data-strength-bar></div>
-                <div class="h-1 flex-1 rounded-full bg-slate-200" data-strength-bar></div>
-                <div class="h-1 flex-1 rounded-full bg-slate-200" data-strength-bar></div>
-              </div>
-              <p class="text-xs" id="strength-text"></p>
-            </div>
-          </div>
+        <div class="form-group">
+          <label for="password" class="form-label">Contraseña</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            required
+            minlength="8"
+            class="form-input"
+            placeholder="••••••••"
+          />
+          <span class="form-helper">Mínimo 8 caracteres</span>
+        </div>
 
-          <!-- Error Message -->
-          <div id="error-message" class="hidden"></div>
+        <div class="form-group">
+          <label for="confirmPassword" class="form-label">Confirmar contraseña</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            name="confirmPassword"
+            required
+            class="form-input"
+            placeholder="••••••••"
+          />
+        </div>
 
-          <!-- Success Message -->
-          <div id="success-message" class="hidden"></div>
+        <button type="submit" id="submit-button" class="auth-submit">
+          Crear cuenta
+        </button>
+      </form>
 
-          <!-- Submit Button -->
-          <Button type="submit" variant="primary" size="lg" fullWidth id="submit-button">
-            Crear Cuenta
-          </Button>
-
-          <!-- Login Link -->
-          <div class="text-center text-sm text-stone-600 font-light pt-2">
-            ¿Ya tienes cuenta?
-            <a href="/login" class="text-stone-800 hover:text-stone-900 font-medium underline transition-colors">
-              Inicia sesión aquí
-            </a>
-          </div>
-        </form>
-      </Card>
+      <div class="auth-footer">
+        <span class="auth-text">¿Ya tienes cuenta?</span>
+        <a href="/login" class="auth-link">Inicia sesión</a>
+      </div>
     </div>
-  </div>
+  </section>
 </Layout>
 
 <style>
-  @import "tailwindcss" reference;
+  .auth-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    background: #fafafa;
+  }
 
-  @keyframes fade-in {
+  .auth-card {
+    width: 100%;
+    max-width: 400px;
+    background: #fff;
+    padding: 3rem;
+    border: 1px solid #e5e5e5;
+  }
+
+  .auth-header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .auth-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #000;
+    margin-bottom: 0.5rem;
+  }
+
+  .auth-subtitle {
+    font-size: 1rem;
+    color: #737373;
+    font-weight: 400;
+  }
+
+  #error-message:not(.hidden) {
+    background: #fef2f2;
+    color: #dc2626;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    font-size: 0.875rem;
+    text-align: center;
+  }
+
+  .auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .form-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #000;
+    letter-spacing: 0.01em;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 0.875rem 0;
+    font-size: 1rem;
+    border: none;
+    border-bottom: 1px solid #e5e5e5;
+    background: transparent;
+    transition: all 0.2s;
+    outline: none;
+  }
+
+  .form-input:focus {
+    border-bottom-color: #000;
+  }
+
+  .form-input::placeholder {
+    color: #d4d4d4;
+  }
+
+  .form-helper {
+    font-size: 0.75rem;
+    color: #a3a3a3;
+  }
+
+  .auth-submit {
+    margin-top: 2rem;
+    padding: 1rem;
+    background: #000;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .auth-submit:hover:not(:disabled) {
+    background: #171717;
+    transform: translateY(-1px);
+  }
+
+  .auth-submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .auth-footer {
+    margin-top: 3rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .auth-text {
+    font-size: 0.875rem;
+    color: #737373;
+  }
+
+  .auth-link {
+    font-size: 0.875rem;
+    color: #000;
+    font-weight: 500;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+
+  .auth-link:hover {
+    opacity: 0.7;
+  }
+
+  @keyframes spin {
     from {
-      opacity: 0;
-      transform: translateY(10px);
+      transform: rotate(0deg);
     }
     to {
-      opacity: 1;
-      transform: translateY(0);
+      transform: rotate(360deg);
     }
   }
 
-  .animate-fade-in {
-    animation: fade-in 0.4s ease-out;
+  .spinner {
+    display: inline-block;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid #fff;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 0.6s linear infinite;
+  }
+
+  @media (max-width: 768px) {
+    .auth-card {
+      padding: 2rem;
+    }
+
+    .auth-title {
+      font-size: 2rem;
+    }
   }
 </style>
 
 <script>
   const form = document.getElementById('registerForm') as HTMLFormElement;
   const errorDiv = document.getElementById('error-message');
-  const successDiv = document.getElementById('success-message');
   const submitButton = document.getElementById('submit-button') as HTMLButtonElement;
   const passwordInput = document.getElementById('password') as HTMLInputElement;
-  const strengthContainer = document.getElementById('password-strength');
-  const strengthText = document.getElementById('strength-text');
-  const strengthBars = document.querySelectorAll('[data-strength-bar]');
+  const confirmPasswordInput = document.getElementById('confirmPassword') as HTMLInputElement;
 
-  // Email validation
-  const emailInput = document.getElementById('email') as HTMLInputElement;
-  emailInput?.addEventListener('blur', () => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (emailInput.value && !emailRegex.test(emailInput.value)) {
-      emailInput.setCustomValidity('Por favor ingresa un correo válido');
+  // Password match validation
+  confirmPasswordInput?.addEventListener('input', () => {
+    if (confirmPasswordInput.value && passwordInput.value !== confirmPasswordInput.value) {
+      confirmPasswordInput.setCustomValidity('Las contraseñas no coinciden');
     } else {
-      emailInput.setCustomValidity('');
-    }
-  });
-
-  // Phone validation
-  const phoneInput = document.getElementById('telefono') as HTMLInputElement;
-  phoneInput?.addEventListener('input', (e) => {
-    const target = e.target as HTMLInputElement;
-    target.value = target.value.replace(/[^0-9]/g, '');
-  });
-
-  // Password strength indicator
-  function getPasswordStrength(password: string): { strength: number; text: string; color: string } {
-    if (password.length === 0) {
-      return { strength: 0, text: '', color: '' };
-    }
-
-    let strength = 0;
-    if (password.length >= 6) strength++;
-    if (password.length >= 10) strength++;
-    if (/[a-z]/.test(password) && /[A-Z]/.test(password)) strength++;
-    if (/[0-9]/.test(password)) strength++;
-    if (/[^a-zA-Z0-9]/.test(password)) strength++;
-
-    const levels = [
-      { text: 'Muy débil', color: 'bg-red-500' },
-      { text: 'Débil', color: 'bg-orange-500' },
-      { text: 'Regular', color: 'bg-amber-500' },
-      { text: 'Buena', color: 'bg-emerald-500' },
-      { text: 'Muy fuerte', color: 'bg-emerald-600' }
-    ];
-
-    const level = Math.min(strength, 4);
-    return { strength: level + 1, ...levels[level] };
-  }
-
-  passwordInput?.addEventListener('input', () => {
-    const password = passwordInput.value;
-
-    if (password.length === 0) {
-      strengthContainer?.classList.add('hidden');
-      return;
-    }
-
-    strengthContainer?.classList.remove('hidden');
-    const { strength, text, color } = getPasswordStrength(password);
-
-    // Update bars
-    strengthBars.forEach((bar, index) => {
-      bar.className = 'h-1 flex-1 rounded-full transition-colors duration-200';
-      if (index < strength) {
-        bar.classList.add(color);
-      } else {
-        bar.classList.add('bg-slate-200');
-      }
-    });
-
-    // Update text
-    if (strengthText) {
-      strengthText.textContent = text;
-      strengthText.className = `text-xs ${color.replace('bg-', 'text-')}`;
+      confirmPasswordInput.setCustomValidity('');
     }
   });
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
 
-    // Clear previous messages
+    // Clear previous errors
     if (errorDiv) {
       errorDiv.classList.add('hidden');
-      errorDiv.innerHTML = '';
-    }
-    if (successDiv) {
-      successDiv.classList.add('hidden');
-      successDiv.innerHTML = '';
+      errorDiv.textContent = '';
     }
 
-    // Validate password length
-    const password = passwordInput.value;
-    if (password.length < 6) {
+    // Validate passwords match
+    if (passwordInput.value !== confirmPasswordInput.value) {
       if (errorDiv) {
-        errorDiv.innerHTML = `
-          <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg flex items-start gap-3 animate-fade-in">
-            <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
-            </svg>
-            <span class="flex-1">La contraseña debe tener al menos 6 caracteres</span>
-          </div>
-        `;
+        errorDiv.textContent = 'Las contraseñas no coinciden';
         errorDiv.classList.remove('hidden');
       }
       return;
     }
 
     // Show loading state
-    submitButton.setAttribute('loading', 'true');
     submitButton.disabled = true;
-    submitButton.innerHTML = '<span class="absolute inset-0 flex items-center justify-center"><svg class="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg></span><span class="opacity-0">Crear Cuenta</span>';
+    const originalText = submitButton.textContent;
+    submitButton.innerHTML = '<span class="spinner"></span>';
 
     const formData = new FormData(form);
     const data = {
@@ -281,28 +326,19 @@ if (user) {
       const result = await response.json();
 
       if (!response.ok) {
-        throw new Error(result.error || 'Error al registrar');
+        throw new Error(result.error || 'Error al crear la cuenta');
       }
 
-      // Success - redirect
-      window.location.href = '/';
+      // Success - redirect to login
+      window.location.href = '/login?registered=true';
     } catch (error) {
       // Reset button
-      submitButton.removeAttribute('loading');
       submitButton.disabled = false;
-      submitButton.innerHTML = 'Crear Cuenta';
+      submitButton.textContent = originalText;
 
       // Show error
       if (errorDiv) {
-        const errorMessage = error instanceof Error ? error.message : 'Error al registrar';
-        errorDiv.innerHTML = `
-          <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg flex items-start gap-3 animate-fade-in">
-            <svg class="w-5 h-5 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
-              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
-            </svg>
-            <span class="flex-1">${errorMessage}</span>
-          </div>
-        `;
+        errorDiv.textContent = error instanceof Error ? error.message : 'Error al crear la cuenta';
         errorDiv.classList.remove('hidden');
       }
     }
