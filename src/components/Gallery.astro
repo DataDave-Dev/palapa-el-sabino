@@ -1,101 +1,237 @@
 ---
-import { ChevronLeft, ChevronRight, X, ZoomIn } from '@lucide/astro';
-
-// Imágenes reales de la cabaña
+// Gallery images
 const images = [
-  { src: '/images/IMG_20250817_170915.jpg', alt: 'Vista panorámica de la cabaña', category: 'Exterior' },
-  { src: '/images/IMG_20250817_170919.jpg', alt: 'Fachada de la cabaña', category: 'Exterior' },
-  { src: '/images/IMG_20250817_170922.jpg', alt: 'Vista lateral', category: 'Exterior' },
-  { src: '/images/IMG_20250921_175918.jpg', alt: 'Área de descanso', category: 'Interior' },
-  { src: '/images/IMG_20250921_175922.jpg', alt: 'Espacio común', category: 'Interior' },
-  { src: '/images/IMG_20250921_175936.jpg', alt: 'Interior de la cabaña', category: 'Interior' },
-  { src: '/images/IMG_20250712_162200.jpg', alt: 'Habitación', category: 'Habitaciones' },
-  { src: '/images/IMG_20250712_164717.jpg', alt: 'Dormitorio', category: 'Habitaciones' },
-  { src: '/images/IMG_20241118_183948.jpg', alt: 'Vista del paisaje', category: 'Vistas' },
-  { src: '/images/IMG_20250712_072005.jpg', alt: 'Amanecer en la montaña', category: 'Vistas' },
-  { src: '/images/IMG_20250712_235515.jpg', alt: 'Vista nocturna', category: 'Vistas' },
-  { src: '/images/IMG_20250817_165757.jpg', alt: 'Atardecer', category: 'Vistas' },
+  { src: '/images/IMG_20250817_170915.jpg', alt: 'Vista panorámica' },
+  { src: '/images/IMG_20250712_164717.jpg', alt: 'Dormitorio' },
+  { src: '/images/IMG_20241118_183948.jpg', alt: 'Vista del paisaje' },
+  { src: '/images/IMG_20250921_175918.jpg', alt: 'Área de descanso' },
+  { src: '/images/IMG_20250921_175936.jpg', alt: 'Interior' },
+  { src: '/images/IMG_20250712_072005.jpg', alt: 'Amanecer' },
+  { src: '/images/IMG_20250817_165757.jpg', alt: 'Atardecer' },
+  { src: '/images/IMG_20250712_235515.jpg', alt: 'Vista nocturna' },
 ];
 ---
 
-<section class="py-20 bg-white">
-  <div class="max-w-7xl mx-auto px-6 lg:px-8">
-    <!-- Section Header -->
-    <div class="text-center mb-12">
-      <h2 class="text-4xl md:text-5xl font-light tracking-tight text-stone-800 mb-4">
-        Galería
-      </h2>
-      <p class="text-lg text-stone-600 font-light">
-        Descubre la belleza de nuestra cabaña
-      </p>
-    </div>
-
-    <!-- Gallery Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<section class="gallery-section">
+  <div class="gallery-container">
+    <div class="gallery-grid">
       {images.map((image, index) => (
         <div
-          class="gallery-item group relative aspect-square overflow-hidden rounded-lg cursor-pointer"
+          class="gallery-item"
           data-index={index}
         >
-          <!-- Imagen real -->
           <img
             src={image.src}
             alt={image.alt}
-            class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
             loading="lazy"
           />
-
-          <!-- Hover Overlay -->
-          <div class="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-all duration-300 flex items-center justify-center">
-            <div class="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <ZoomIn class="w-10 h-10 text-white" />
-            </div>
-          </div>
         </div>
       ))}
     </div>
-
   </div>
 </section>
 
-<!-- Lightbox Modal -->
-<div id="lightbox" class="fixed inset-0 z-50 bg-stone-950/98 hidden items-center justify-center p-4">
-  <button
-    id="lightbox-close"
-    class="absolute top-6 right-6 p-3 text-white hover:text-stone-300 transition-colors"
-    aria-label="Close lightbox"
-  >
-    <X class="w-7 h-7" />
+<!-- Lightbox -->
+<div id="lightbox" class="lightbox">
+  <button id="lightbox-close" class="lightbox-close" aria-label="Close">
+    <span></span>
+    <span></span>
   </button>
 
-  <button
-    id="lightbox-prev"
-    class="absolute left-6 p-3 text-white hover:text-stone-300 transition-colors"
-    aria-label="Previous image"
-  >
-    <ChevronLeft class="w-8 h-8" />
-  </button>
-
-  <div id="lightbox-content" class="max-w-6xl w-full">
-    <img id="lightbox-image" src="" alt="" class="w-full h-auto rounded shadow-2xl" />
-    <p id="lightbox-caption" class="text-stone-300 text-center mt-6 text-base font-light"></p>
+  <div class="lightbox-content">
+    <img id="lightbox-image" src="" alt="" />
   </div>
 
-  <button
-    id="lightbox-next"
-    class="absolute right-6 p-3 text-white hover:text-stone-300 transition-colors"
-    aria-label="Next image"
-  >
-    <ChevronRight class="w-8 h-8" />
-  </button>
+  <div class="lightbox-nav">
+    <button id="lightbox-prev" class="lightbox-nav-btn" aria-label="Previous">
+      ←
+    </button>
+    <button id="lightbox-next" class="lightbox-nav-btn" aria-label="Next">
+      →
+    </button>
+  </div>
 </div>
+
+<style>
+  .gallery-section {
+    padding: 0;
+    background: #fff;
+    margin: 0;
+  }
+
+  .gallery-container {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+  }
+
+  .gallery-item {
+    position: relative;
+    aspect-ratio: 1;
+    overflow: hidden;
+    cursor: pointer;
+    background: #f5f5f5;
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+  }
+
+  .gallery-item:hover img {
+    transform: scale(1.05);
+  }
+
+  /* Lightbox */
+  .lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .lightbox.active {
+    display: flex;
+    opacity: 1;
+  }
+
+  .lightbox-content {
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lightbox-content img {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+    animation: fadeInScale 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 10000;
+    padding: 0;
+  }
+
+  .lightbox-close span {
+    position: absolute;
+    left: 15px;
+    width: 2px;
+    height: 24px;
+    background: #000;
+    transition: all 0.2s;
+  }
+
+  .lightbox-close span:first-child {
+    transform: rotate(45deg);
+  }
+
+  .lightbox-close span:last-child {
+    transform: rotate(-45deg);
+  }
+
+  .lightbox-close:hover span {
+    background: #737373;
+  }
+
+  .lightbox-nav {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 2rem;
+  }
+
+  .lightbox-nav-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #000;
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .lightbox-nav-btn:hover {
+    background: rgba(0, 0, 0, 0.1);
+    transform: scale(1.1);
+  }
+
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .gallery-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .gallery-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1px;
+    }
+
+    .lightbox-nav {
+      bottom: 1rem;
+    }
+
+    .lightbox-close {
+      top: 1rem;
+      right: 1rem;
+    }
+  }
+</style>
 
 <script define:vars={{ images }}>
   let currentIndex = 0;
 
   const lightbox = document.getElementById('lightbox');
-  const lightboxContent = document.getElementById('lightbox-content');
-  const lightboxCaption = document.getElementById('lightbox-caption');
+  const lightboxImage = document.getElementById('lightbox-image');
   const closeBtn = document.getElementById('lightbox-close');
   const prevBtn = document.getElementById('lightbox-prev');
   const nextBtn = document.getElementById('lightbox-next');
@@ -103,38 +239,29 @@ const images = [
 
   function openLightbox(index) {
     currentIndex = index;
-    updateLightbox();
-    lightbox.classList.remove('hidden');
-    lightbox.classList.add('flex');
+    const image = images[index];
+    lightboxImage.src = image.src;
+    lightboxImage.alt = image.alt;
+    lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
   }
 
   function closeLightbox() {
-    lightbox.classList.add('hidden');
-    lightbox.classList.remove('flex');
+    lightbox.classList.remove('active');
     document.body.style.overflow = '';
   }
 
-  function updateLightbox() {
-    const image = images[currentIndex];
-    const lightboxImage = document.getElementById('lightbox-image');
-    if (lightboxImage) {
+  function showImage(index) {
+    if (index < 0) index = images.length - 1;
+    if (index >= images.length) index = 0;
+    currentIndex = index;
+    const image = images[index];
+    lightboxImage.style.opacity = '0';
+    setTimeout(() => {
       lightboxImage.src = image.src;
       lightboxImage.alt = image.alt;
-    }
-    if (lightboxCaption) {
-      lightboxCaption.textContent = image.alt;
-    }
-  }
-
-  function nextImage() {
-    currentIndex = (currentIndex + 1) % images.length;
-    updateLightbox();
-  }
-
-  function prevImage() {
-    currentIndex = (currentIndex - 1 + images.length) % images.length;
-    updateLightbox();
+      lightboxImage.style.opacity = '1';
+    }, 200);
   }
 
   // Event listeners
@@ -143,44 +270,20 @@ const images = [
   });
 
   closeBtn?.addEventListener('click', closeLightbox);
-  nextBtn?.addEventListener('click', nextImage);
-  prevBtn?.addEventListener('click', prevImage);
+  prevBtn?.addEventListener('click', () => showImage(currentIndex - 1));
+  nextBtn?.addEventListener('click', () => showImage(currentIndex + 1));
 
   // Keyboard navigation
   document.addEventListener('keydown', (e) => {
-    if (!lightbox.classList.contains('hidden')) {
-      if (e.key === 'Escape') closeLightbox();
-      if (e.key === 'ArrowLeft') prevImage();
-      if (e.key === 'ArrowRight') nextImage();
-    }
+    if (!lightbox.classList.contains('active')) return;
+
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
+    if (e.key === 'ArrowRight') showImage(currentIndex + 1);
   });
 
-  // Close on background click
+  // Click outside to close
   lightbox?.addEventListener('click', (e) => {
     if (e.target === lightbox) closeLightbox();
   });
 </script>
-
-<style>
-  .gallery-item {
-    animation: fadeInScale 0.6s ease-out forwards;
-    opacity: 0;
-    transform: scale(0.9);
-  }
-
-  .gallery-item[data-index="0"] { animation-delay: 0s; }
-  .gallery-item[data-index="1"] { animation-delay: 0.1s; }
-  .gallery-item[data-index="2"] { animation-delay: 0.2s; }
-  .gallery-item[data-index="3"] { animation-delay: 0.3s; }
-  .gallery-item[data-index="4"] { animation-delay: 0.4s; }
-  .gallery-item[data-index="5"] { animation-delay: 0.5s; }
-  .gallery-item[data-index="6"] { animation-delay: 0.6s; }
-  .gallery-item[data-index="7"] { animation-delay: 0.7s; }
-
-  @keyframes fadeInScale {
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-</style>
