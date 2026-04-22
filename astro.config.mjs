@@ -10,15 +10,7 @@ export default defineConfig({
   adapter: node({
     mode: 'standalone'
   }),
-  integrations: [
-    db({
-      // En producción con ASTRO_DB_REMOTE_URL configurado, usa Turso
-      // En desarrollo sin esa variable, usa SQLite local
-      ...(process.env.ASTRO_DB_REMOTE_URL && {
-        remote: process.env.ASTRO_DB_REMOTE_URL
-      })
-    })
-  ],
+  integrations: [db()],
   vite: {
     plugins: [tailwindcss()]
   }
