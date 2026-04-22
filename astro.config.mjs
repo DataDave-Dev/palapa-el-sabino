@@ -12,12 +12,10 @@ export default defineConfig({
   }),
   integrations: [
     db({
-      // Si hay variables de entorno de Turso, úsalas (producción)
-      // Si no, usa SQLite local (desarrollo)
-      ...(process.env.ASTRO_DATABASE_FILE && process.env.ASTRO_DB_AUTH_TOKEN && {
-        studio: false,
-        dbUrl: process.env.ASTRO_DATABASE_FILE,
-        authToken: process.env.ASTRO_DB_AUTH_TOKEN
+      // En producción con ASTRO_DB_REMOTE_URL configurado, usa Turso
+      // En desarrollo sin esa variable, usa SQLite local
+      ...(process.env.ASTRO_DB_REMOTE_URL && {
+        remote: process.env.ASTRO_DB_REMOTE_URL
       })
     })
   ],
