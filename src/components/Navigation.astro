@@ -16,7 +16,13 @@ const navLinks = [
     <div class="nav-inner">
       <!-- Logo -->
       <a href="/" class="logo-link">
-        <span class="logo-text">Palapa</span>
+        <div class="logo-container">
+          <img src="/logo.png" alt="Palapa El Sabino" class="logo-image" />
+          <div class="logo-text-group">
+            <span class="logo-text">PALAPA</span>
+            <span class="logo-subtitle">EL SABINO</span>
+          </div>
+        </div>
       </a>
 
       <!-- Desktop Navigation -->
@@ -117,25 +123,83 @@ const navLinks = [
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 80px;
+    height: 88px;
     transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .scrolled .nav-inner {
-    height: 64px;
+    height: 68px;
   }
 
   /* Logo */
   .logo-link {
-    font-size: 1.5rem;
-    font-weight: 700;
-    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
     color: #000;
-    transition: opacity 0.2s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+  }
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+  }
+
+  .logo-image {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .scrolled .logo-image {
+    width: 40px;
+    height: 40px;
+  }
+
+  .logo-text-group {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+
+  .logo-text {
+    font-size: 1.375rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    transition: all 0.3s;
+  }
+
+  .scrolled .logo-text {
+    font-size: 1.125rem;
+  }
+
+  .logo-subtitle {
+    font-size: 0.625rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    color: #737373;
+    margin-top: 2px;
+    transition: all 0.3s;
+  }
+
+  .scrolled .logo-subtitle {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  .logo-link:hover .logo-image {
+    transform: rotate(5deg) scale(1.1);
+  }
+
+  .logo-link:hover .logo-text {
+    letter-spacing: 0;
   }
 
   .logo-link:hover {
-    opacity: 0.7;
+    opacity: 1;
   }
 
   /* Desktop Navigation */
@@ -349,15 +413,33 @@ const navLinks = [
 
   @media (max-width: 768px) {
     .nav-inner {
-      height: 64px;
+      height: 72px;
     }
 
     .scrolled .nav-inner {
-      height: 56px;
+      height: 64px;
     }
 
     .mobile-menu {
-      top: 64px;
+      top: 72px;
+    }
+
+    .logo-image {
+      width: 40px;
+      height: 40px;
+    }
+
+    .scrolled .logo-image {
+      width: 36px;
+      height: 36px;
+    }
+
+    .logo-text {
+      font-size: 1.125rem;
+    }
+
+    .logo-subtitle {
+      display: none;
     }
   }
 </style>
