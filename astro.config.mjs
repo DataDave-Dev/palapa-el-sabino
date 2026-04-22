@@ -13,5 +13,13 @@ export default defineConfig({
   integrations: [db()],
   vite: {
     plugins: [tailwindcss()]
+  },
+  db: {
+    // En desarrollo usa SQLite local
+    // En producción usa las variables de entorno
+    ...(process.env.ASTRO_DATABASE_FILE && {
+      dbUrl: process.env.ASTRO_DATABASE_FILE,
+      authToken: process.env.ASTRO_DB_AUTH_TOKEN
+    })
   }
 });
