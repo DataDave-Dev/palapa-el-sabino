@@ -1,5 +1,7 @@
 ---
+import { Image } from 'astro:assets';
 import { getUserFromCookies } from '../lib/auth';
+import LogoPalapa from '../../public/logo.png'
 
 const user = getUserFromCookies(Astro.cookies);
 const currentPath = Astro.url.pathname;
@@ -17,11 +19,7 @@ const navLinks = [
       <!-- Logo -->
       <a href="/" class="logo-link">
         <div class="logo-container">
-          <img src="/logo.png" alt="Palapa El Sabino" class="logo-image" />
-          <div class="logo-text-group">
-            <span class="logo-text">PALAPA</span>
-            <span class="logo-subtitle">EL SABINO</span>
-          </div>
+          <Image src={LogoPalapa} alt="Logo de la Palapa El Sabino" width="120" height="120" />
         </div>
       </a>
 
