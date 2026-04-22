@@ -1,296 +1,449 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Navigation from '../components/Navigation.astro';
-import Button from '../components/ui/Button.astro';
-import { Check, Star, Home, Building, Calendar, Users, MapPin } from '@lucide/astro';
 ---
 
-<Layout title="Precios - Quinta El Cielo">
+<Layout title="Precios - Palapa El Sabino">
   <Navigation />
 
-  <div class="pt-24 pb-20 bg-stone-50 min-h-screen">
-    <div class="max-w-7xl mx-auto px-6">
-      <!-- Header -->
-      <div class="text-center mb-16 animate-fade-in">
-        <h1 class="text-5xl md:text-6xl lg:text-7xl font-light tracking-tight text-stone-800 mb-6">
-          Precios
-        </h1>
-        <div class="h-px w-24 bg-stone-300 mx-auto mb-8"></div>
-        <p class="text-xl text-stone-600 font-light max-w-2xl mx-auto leading-relaxed">
-          Experimenta la tranquilidad de la sierra con opciones diseñadas para grupos de todos los tamaños
-        </p>
-      </div>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content-center">
+      <h1 class="page-title">Precios</h1>
+      <p class="page-subtitle">Tarifas transparentes, sin sorpresas</p>
+    </div>
+  </section>
 
-      <!-- Pricing Cards -->
-      <div class="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto mb-20">
-        <!-- Planta Baja -->
-        <div class="bg-white rounded-2xl shadow-lg border border-stone-200 overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 animate-fade-in-up" style="animation-delay: 0.1s;">
-          <div class="bg-gradient-to-br from-stone-700 to-stone-800 p-8 lg:p-10 text-white relative overflow-hidden">
-            <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -translate-y-32 translate-x-32"></div>
-            <div class="relative">
-              <div class="flex items-start justify-between mb-6">
-                <div class="flex items-center gap-3">
-                  <div class="p-3 bg-white/10 rounded-lg backdrop-blur-sm">
-                    <Home class="w-7 h-7" />
-                  </div>
-                  <div>
-                    <h3 class="text-3xl font-light tracking-tight">Planta Baja</h3>
-                    <p class="text-stone-200 font-light">Habitación Paraíso</p>
-                  </div>
-                </div>
-              </div>
-              <div class="mb-6">
-                <div class="flex items-baseline gap-2">
-                  <span class="text-6xl font-light tracking-tight">$5,499</span>
-                </div>
-                <p class="text-stone-200 font-light mt-2">Fin de semana completo</p>
-                <p class="text-stone-300 text-sm font-light mt-1">Viernes a Domingo</p>
-              </div>
-            </div>
+  <!-- Pricing Cards -->
+  <section class="pricing-section">
+    <div class="container">
+      <div class="pricing-grid">
+        <!-- Palapa Baja -->
+        <div class="price-card">
+          <div class="price-header">
+            <h3 class="price-title">Palapa Baja</h3>
+            <p class="price-subtitle">Ideal para grupos pequeños</p>
           </div>
-
-          <div class="p-8 lg:p-10">
-            <h4 class="text-lg font-medium text-stone-800 mb-6">¿Qué incluye?</h4>
-            <ul class="space-y-4 mb-8">
-              <li class="flex items-start gap-3 group">
-                <div class="p-1 rounded-full bg-emerald-50 group-hover:bg-emerald-100 transition-colors">
-                  <Check class="w-5 h-5 text-emerald-600 flex-shrink-0" />
-                </div>
-                <span class="text-stone-700 font-light leading-relaxed">Acceso completo a planta baja</span>
-              </li>
-              <li class="flex items-start gap-3 group">
-                <div class="p-1 rounded-full bg-emerald-50 group-hover:bg-emerald-100 transition-colors">
-                  <Check class="w-5 h-5 text-emerald-600 flex-shrink-0" />
-                </div>
-                <span class="text-stone-700 font-light leading-relaxed">Habitación Paraíso con camas cómodas</span>
-              </li>
-              <li class="flex items-start gap-3 group">
-                <div class="p-1 rounded-full bg-emerald-50 group-hover:bg-emerald-100 transition-colors">
-                  <Check class="w-5 h-5 text-emerald-600 flex-shrink-0" />
-                </div>
-                <span class="text-stone-700 font-light leading-relaxed">Cocina equipada completa</span>
-              </li>
-              <li class="flex items-start gap-3 group">
-                <div class="p-1 rounded-full bg-emerald-50 group-hover:bg-emerald-100 transition-colors">
-                  <Check class="w-5 h-5 text-emerald-600 flex-shrink-0" />
-                </div>
-                <span class="text-stone-700 font-light leading-relaxed">Asador y disco para cocinar al aire libre</span>
-              </li>
-              <li class="flex items-start gap-3 group">
-                <div class="p-1 rounded-full bg-emerald-50 group-hover:bg-emerald-100 transition-colors">
-                  <Check class="w-5 h-5 text-emerald-600 flex-shrink-0" />
-                </div>
-                <span class="text-stone-700 font-light leading-relaxed">Medio baño</span>
-              </li>
-            </ul>
-
-            <a href="/reservar" class="block">
-              <Button variant="outline" size="lg" fullWidth>
-                Reservar Planta Baja
-              </Button>
-            </a>
+          <div class="price-amount">
+            <span class="currency">$</span>
+            <span class="number">6,000</span>
+            <span class="period">/noche</span>
           </div>
+          <ul class="price-features">
+            <li>2 habitaciones</li>
+            <li>Hasta 10 personas</li>
+            <li>Cocina equipada</li>
+            <li>Área común</li>
+            <li>Estacionamiento</li>
+          </ul>
+          <a href="/reservar" class="price-cta">Reservar</a>
         </div>
 
         <!-- Cabaña Completa -->
-        <div class="bg-white rounded-2xl shadow-xl border-2 border-stone-800 overflow-hidden relative hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 animate-fade-in-up" style="animation-delay: 0.2s;">
-          <!-- Popular Badge -->
-          <div class="absolute top-6 right-6 bg-gradient-to-r from-stone-800 to-stone-900 text-white px-5 py-2.5 rounded-full flex items-center gap-2 font-medium text-sm shadow-lg z-10">
-            <Star class="w-4 h-4 fill-current" />
-            Más Popular
+        <div class="price-card featured">
+          <div class="price-badge">Más popular</div>
+          <div class="price-header">
+            <h3 class="price-title">Cabaña Completa</h3>
+            <p class="price-subtitle">La experiencia completa</p>
           </div>
-
-          <div class="bg-gradient-to-br from-stone-800 via-stone-900 to-stone-950 p-8 lg:p-10 text-white relative overflow-hidden">
-            <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full -translate-y-48 translate-x-48"></div>
-            <div class="absolute bottom-0 left-0 w-64 h-64 bg-white/5 rounded-full translate-y-32 -translate-x-32"></div>
-            <div class="relative">
-              <div class="flex items-start justify-between mb-6">
-                <div class="flex items-center gap-3">
-                  <div class="p-3 bg-white/10 rounded-lg backdrop-blur-sm">
-                    <Building class="w-7 h-7" />
-                  </div>
-                  <div>
-                    <h3 class="text-3xl font-light tracking-tight">Cabaña Completa</h3>
-                    <p class="text-stone-200 font-light">4 Habitaciones · 15-20 personas</p>
-                  </div>
-                </div>
-              </div>
-              <div class="mb-6">
-                <div class="flex items-baseline gap-2">
-                  <span class="text-6xl font-light tracking-tight">$8,500</span>
-                </div>
-                <p class="text-stone-200 font-light mt-2">Fin de semana completo</p>
-                <p class="text-stone-300 text-sm font-light mt-1">Viernes a Domingo</p>
-              </div>
-            </div>
+          <div class="price-amount">
+            <span class="currency">$</span>
+            <span class="number">10,000</span>
+            <span class="period">/noche</span>
           </div>
-
-          <div class="p-8 lg:p-10">
-            <h4 class="text-lg font-medium text-stone-800 mb-6">¿Qué incluye?</h4>
-            <ul class="space-y-4 mb-8">
-              <li class="flex items-start gap-3 group">
-                <div class="p-1 rounded-full bg-emerald-50 group-hover:bg-emerald-100 transition-colors">
-                  <Check class="w-5 h-5 text-emerald-600 flex-shrink-0" />
-                </div>
-                <span class="text-stone-800 font-medium leading-relaxed">Todo lo de Planta Baja +</span>
-              </li>
-              <li class="flex items-start gap-3 group">
-                <div class="p-1 rounded-full bg-emerald-50 group-hover:bg-emerald-100 transition-colors">
-                  <Check class="w-5 h-5 text-emerald-600 flex-shrink-0" />
-                </div>
-                <span class="text-stone-700 font-light leading-relaxed">3 Habitaciones adicionales (Edén, Cielo y Nubes)</span>
-              </li>
-              <li class="flex items-start gap-3 group">
-                <div class="p-1 rounded-full bg-emerald-50 group-hover:bg-emerald-100 transition-colors">
-                  <Check class="w-5 h-5 text-emerald-600 flex-shrink-0" />
-                </div>
-                <span class="text-stone-700 font-light leading-relaxed">3 baños completos con agua caliente</span>
-              </li>
-              <li class="flex items-start gap-3 group">
-                <div class="p-1 rounded-full bg-emerald-50 group-hover:bg-emerald-100 transition-colors">
-                  <Check class="w-5 h-5 text-emerald-600 flex-shrink-0" />
-                </div>
-                <span class="text-stone-700 font-light leading-relaxed">Vistas panorámicas desde cada habitación</span>
-              </li>
-              <li class="flex items-start gap-3 group">
-                <div class="p-1 rounded-full bg-emerald-50 group-hover:bg-emerald-100 transition-colors">
-                  <Check class="w-5 h-5 text-emerald-600 flex-shrink-0" />
-                </div>
-                <span class="text-stone-700 font-light leading-relaxed">Espacios amplios para grupos grandes</span>
-              </li>
-            </ul>
-
-            <a href="/reservar" class="block">
-              <Button variant="primary" size="lg" fullWidth>
-                Reservar Cabaña Completa
-              </Button>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Features Grid -->
-      <div class="max-w-6xl mx-auto mb-20 animate-fade-in-up" style="animation-delay: 0.3s;">
-        <h2 class="text-3xl md:text-4xl font-light tracking-tight text-stone-800 text-center mb-12">
-          Incluido en todas las reservas
-        </h2>
-        <div class="grid md:grid-cols-3 gap-6">
-          <div class="bg-white rounded-xl p-8 border border-stone-200 hover:shadow-lg transition-shadow">
-            <div class="w-12 h-12 rounded-lg bg-stone-100 flex items-center justify-center mb-4">
-              <Calendar class="w-6 h-6 text-stone-700" />
-            </div>
-            <h3 class="text-lg font-medium text-stone-800 mb-2">Fines de Semana</h3>
-            <p class="text-stone-600 font-light leading-relaxed">
-              Entrada viernes por la tarde, salida domingo. Disfruta 3 días completos en la sierra.
-            </p>
-          </div>
-
-          <div class="bg-white rounded-xl p-8 border border-stone-200 hover:shadow-lg transition-shadow">
-            <div class="w-12 h-12 rounded-lg bg-stone-100 flex items-center justify-center mb-4">
-              <MapPin class="w-6 h-6 text-stone-700" />
-            </div>
-            <h3 class="text-lg font-medium text-stone-800 mb-2">Ubicación Privilegiada</h3>
-            <p class="text-stone-600 font-light leading-relaxed">
-              A 80 minutos de Monterrey a 3,550m de altitud con acceso vehicular de concreto.
-            </p>
-          </div>
-
-          <div class="bg-white rounded-xl p-8 border border-stone-200 hover:shadow-lg transition-shadow">
-            <div class="w-12 h-12 rounded-lg bg-stone-100 flex items-center justify-center mb-4">
-              <Users class="w-6 h-6 text-stone-700" />
-            </div>
-            <h3 class="text-lg font-medium text-stone-800 mb-2">Para Grupos</h3>
-            <p class="text-stone-600 font-light leading-relaxed">
-              Espacios amplios diseñados para reuniones familiares, retiros o escapadas con amigos.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Additional Info -->
-      <div class="max-w-4xl mx-auto animate-fade-in-up" style="animation-delay: 0.4s;">
-        <div class="bg-gradient-to-br from-stone-800 to-stone-900 rounded-2xl p-8 md:p-12 shadow-xl text-white">
-          <h3 class="text-2xl md:text-3xl font-light tracking-tight mb-8 text-center">
-            Información Importante
-          </h3>
-          <div class="grid md:grid-cols-2 gap-6">
-            <ul class="space-y-4">
-              <li class="flex items-start gap-3">
-                <Check class="w-5 h-5 text-emerald-400 flex-shrink-0 mt-0.5" />
-                <span class="font-light">Precios por fin de semana completo</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <Check class="w-5 h-5 text-emerald-400 flex-shrink-0 mt-0.5" />
-                <span class="font-light">Reservas requieren confirmación previa</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <Check class="w-5 h-5 text-emerald-400 flex-shrink-0 mt-0.5" />
-                <span class="font-light">Solo disponible fines de semana</span>
-              </li>
-            </ul>
-            <ul class="space-y-4">
-              <li class="flex items-start gap-3">
-                <Check class="w-5 h-5 text-emerald-400 flex-shrink-0 mt-0.5" />
-                <span class="font-light">Asador y disco para cocinar incluidos</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <Check class="w-5 h-5 text-emerald-400 flex-shrink-0 mt-0.5" />
-                <span class="font-light">Camino de concreto hasta la entrada</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <Check class="w-5 h-5 text-emerald-400 flex-shrink-0 mt-0.5" />
-                <span class="font-light">Vistas espectaculares garantizadas</span>
-              </li>
-            </ul>
-          </div>
-
-          <div class="mt-10 text-center">
-            <p class="text-stone-200 font-light mb-6">
-              ¿Tienes preguntas? Contáctanos para más información
-            </p>
-            <a href="/reservar">
-              <Button variant="outline" size="lg" class="bg-white/10 border-white/30 text-white hover:bg-white/20">
-                Hacer una Reserva
-              </Button>
-            </a>
-          </div>
+          <ul class="price-features">
+            <li>4 habitaciones</li>
+            <li>Hasta 20 personas</li>
+            <li>Cocina completa</li>
+            <li>Todas las áreas</li>
+            <li>Asador incluido</li>
+            <li>Vista panorámica</li>
+          </ul>
+          <a href="/reservar" class="price-cta price-cta--featured">Reservar</a>
         </div>
       </div>
     </div>
-  </div>
+  </section>
+
+  <!-- Terms Section -->
+  <section class="terms-section">
+    <div class="container-narrow">
+      <h2 class="section-title-center">Términos y condiciones</h2>
+      <div class="terms-grid">
+        <div class="term-item">
+          <h3 class="term-title">Check-in / Check-out</h3>
+          <p class="term-text">Entrada: 3:00 PM<br/>Salida: 12:00 PM</p>
+        </div>
+        <div class="term-item">
+          <h3 class="term-title">Política de cancelación</h3>
+          <p class="term-text">Cancelación gratuita hasta 7 días antes</p>
+        </div>
+        <div class="term-item">
+          <h3 class="term-title">Depósito de garantía</h3>
+          <p class="term-text">$2,000 reembolsables</p>
+        </div>
+        <div class="term-item">
+          <h3 class="term-title">Mínimo de estancia</h3>
+          <p class="term-text">2 noches en fin de semana</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <div class="container-narrow">
+      <h2 class="section-title-center">Preguntas frecuentes</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <h3 class="faq-question">¿Qué incluye la tarifa?</h3>
+          <p class="faq-answer">
+            La tarifa incluye el uso completo de las instalaciones, cocina equipada,
+            áreas comunes, estacionamiento y todos los servicios básicos.
+          </p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question">¿Puedo llevar mascotas?</h3>
+          <p class="faq-answer">
+            Sí, las mascotas son bienvenidas con un cargo adicional de $500 por estadía.
+            Máximo 2 mascotas por reservación.
+          </p>
+        </div>
+        <div class="faq-item">
+          <h3 class="faq-question">¿Hay descuentos por estadías largas?</h3>
+          <p class="faq-answer">
+            Ofrecemos descuentos especiales para estadías de 7 noches o más.
+            Contáctanos para más información.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container-narrow">
+      <h2 class="cta-title">¿Listo para tu escape?</h2>
+      <p class="cta-text">Reserva ahora y asegura tu fecha</p>
+      <a href="/reservar" class="btn-primary">Ver disponibilidad</a>
+    </div>
+  </section>
 </Layout>
 
 <style>
-  @import "tailwindcss" reference;
-
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-      transform: translateY(0);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  /* Hero Section */
+  .hero-section {
+    padding-top: 88px;
+    min-height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fafafa;
   }
 
-  @keyframes fade-in-up {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  .hero-content-center {
+    text-align: center;
+    padding: 4rem 1.5rem;
   }
 
-  .animate-fade-in {
-    animation: fade-in 0.6s ease-out;
+  .page-title {
+    font-size: clamp(3rem, 8vw, 5rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: #000;
+    margin-bottom: 1.5rem;
   }
 
-  .animate-fade-in-up {
-    animation: fade-in-up 0.6s ease-out;
-    animation-fill-mode: both;
+  .page-subtitle {
+    font-size: 1.25rem;
+    font-weight: 300;
+    color: #737373;
+    letter-spacing: 0.02em;
+  }
+
+  /* Pricing Section */
+  .pricing-section {
+    padding: 6rem 0;
+    background: #fff;
+  }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .price-card {
+    position: relative;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 0;
+    padding: 3rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .price-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+  }
+
+  .price-card.featured {
+    border-color: #000;
+  }
+
+  .price-badge {
+    position: absolute;
+    top: -1px;
+    right: -1px;
+    background: #000;
+    color: #fff;
+    padding: 0.5rem 1.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .price-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .price-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 0.5rem;
+  }
+
+  .price-subtitle {
+    font-size: 0.938rem;
+    color: #737373;
+  }
+
+  .price-amount {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    margin-bottom: 2rem;
+    gap: 0.25rem;
+  }
+
+  .currency {
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: #737373;
+  }
+
+  .number {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #000;
+    line-height: 1;
+  }
+
+  .period {
+    font-size: 1rem;
+    font-weight: 400;
+    color: #737373;
+  }
+
+  .price-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 2rem 0;
+  }
+
+  .price-features li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid #f5f5f5;
+    color: #525252;
+    font-size: 0.938rem;
+  }
+
+  .price-features li:last-child {
+    border-bottom: none;
+  }
+
+  .price-cta {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    background: transparent;
+    color: #000;
+    border: 1px solid #000;
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 100px;
+    transition: all 0.2s;
+  }
+
+  .price-cta:hover {
+    background: #000;
+    color: #fff;
+  }
+
+  .price-cta--featured {
+    background: #000;
+    color: #fff;
+  }
+
+  .price-cta--featured:hover {
+    background: #171717;
+  }
+
+  /* Terms Section */
+  .terms-section {
+    padding: 6rem 0;
+    background: #fafafa;
+  }
+
+  .terms-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+    margin-top: 3rem;
+  }
+
+  .term-item {
+    text-align: center;
+  }
+
+  .term-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 0.75rem;
+  }
+
+  .term-text {
+    font-size: 0.938rem;
+    color: #737373;
+    line-height: 1.6;
+  }
+
+  /* FAQ Section */
+  .faq-section {
+    padding: 6rem 0;
+    background: #fff;
+  }
+
+  .faq-list {
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .faq-item {
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #f5f5f5;
+  }
+
+  .faq-item:last-child {
+    border-bottom: none;
+  }
+
+  .faq-question {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #000;
+    margin-bottom: 1rem;
+  }
+
+  .faq-answer {
+    font-size: 1rem;
+    color: #737373;
+    line-height: 1.7;
+  }
+
+  /* CTA Section */
+  .cta-section {
+    padding: 6rem 0;
+    background: #fafafa;
+    text-align: center;
+  }
+
+  .cta-title {
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: #000;
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-text {
+    font-size: 1.125rem;
+    color: #737373;
+    margin-bottom: 3rem;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 1rem 3rem;
+    background: #000;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 100px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-primary:hover {
+    background: #171717;
+    transform: translateY(-2px);
+  }
+
+  /* Utilities */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .container-narrow {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  .section-title-center {
+    text-align: center;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: #000;
+    margin-bottom: 2rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero-section {
+      padding-top: 72px;
+    }
+
+    .pricing-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .terms-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .pricing-section,
+    .terms-section,
+    .faq-section,
+    .cta-section {
+      padding: 4rem 0;
+    }
   }
 </style>
