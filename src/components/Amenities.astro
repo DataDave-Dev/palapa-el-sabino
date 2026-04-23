@@ -1,163 +1,204 @@
 ---
-import { Bed, Flame, Refrigerator, UtensilsCrossed, Droplets, Bath, Trees, Stars, Car, Home, BedDouble } from '@lucide/astro';
+import {
+    Bed,
+    Flame,
+    Refrigerator,
+    UtensilsCrossed,
+    Droplets,
+    Bath,
+    Trees,
+    Stars,
+    Car,
+    Home,
+    BedDouble,
+} from "@lucide/astro";
 
 const amenities = [
-  {
-    icon: BedDouble,
-    title: 'Habitaciones Cómodas',
-    description: '1 Litera, 6 camas individuales, 1 cama King Size'
-  },
-  {
-    icon: Flame,
-    title: 'Estufa de Gas',
-    description: 'Cocina completamente equipada para preparar tus alimentos'
-  },
-  {
-    icon: Refrigerator,
-    title: 'Refrigerador',
-    description: 'Para mantener tus alimentos frescos durante tu estancia'
-  },
-  {
-    icon: UtensilsCrossed,
-    title: 'Asador y Disco',
-    description: 'Disfruta de deliciosas carnes asadas al aire libre'
-  },
-  {
-    icon: Droplets,
-    title: 'Agua Caliente',
-    description: 'Baños completos con agua caliente en cada habitación de la planta alta'
-  },
-  {
-    icon: Bath,
-    title: '4 Baños Completos',
-    description: '3 baños en habitaciones de planta alta + 1/2 baño en planta baja'
-  },
-  {
-    icon: Stars,
-    title: 'Vista Espectacular al Cielo',
-    description: 'Contempla las estrellas de una forma única e inigualable'
-  },
-  {
-    icon: Trees,
-    title: 'Flora y Fauna',
-    description: 'Gran variedad de especies naturales en el entorno'
-  },
-  {
-    icon: Car,
-    title: 'Acceso Vehicular',
-    description: 'Camino de concreto hidráulico, cualquier vehículo puede subir'
-  }
+    {
+        icon: BedDouble,
+        title: "Habitaciones Cómodas",
+        description: "1 Litera, 6 camas individuales, 1 cama King Size",
+    },
+    {
+        icon: Flame,
+        title: "Estufa de Gas",
+        description:
+            "Cocina completamente equipada para preparar tus alimentos",
+    },
+    {
+        icon: Refrigerator,
+        title: "Refrigerador",
+        description: "Para mantener tus alimentos frescos durante tu estancia",
+    },
+    {
+        icon: UtensilsCrossed,
+        title: "Asador y Disco",
+        description: "Disfruta de deliciosas carnes asadas al aire libre",
+    },
+    {
+        icon: Droplets,
+        title: "Agua Caliente",
+        description:
+            "Baños completos con agua caliente en cada habitación de la planta alta",
+    },
+    {
+        icon: Bath,
+        title: "4 Baños Completos",
+        description:
+            "3 baños en habitaciones de planta alta + 1/2 baño en planta baja",
+    },
+    {
+        icon: Stars,
+        title: "Vista Espectacular al Cielo",
+        description: "Contempla las estrellas de una forma única e inigualable",
+    },
+    {
+        icon: Trees,
+        title: "Flora y Fauna",
+        description: "Gran variedad de especies naturales en el entorno",
+    },
+    {
+        icon: Car,
+        title: "Acceso Vehicular",
+        description:
+            "Camino de concreto hidráulico, cualquier vehículo puede subir",
+    },
 ];
 ---
 
 <section class="py-20 bg-white">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Section Header -->
-    <div class="text-center mb-16">
-      <h2 class="text-4xl md:text-5xl font-light tracking-tight text-stone-800 mb-4">
-        Amenidades
-      </h2>
-      <p class="text-lg text-stone-600 font-light max-w-2xl mx-auto">
-        Todo lo necesario para una estancia memorable
-      </p>
-    </div>
-
-    <!-- Amenities Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {amenities.map((amenity, index) => {
-        const Icon = amenity.icon;
-        return (
-          <div
-            class="amenity-card group bg-stone-50 rounded-lg p-6 hover:bg-white hover:shadow-md transition-all duration-300 border border-stone-200"
-            data-index={index}
-          >
-            <div class="flex items-start gap-4">
-              <div class="flex-shrink-0">
-                <div class="w-12 h-12 bg-stone-800 rounded flex items-center justify-center group-hover:bg-stone-700 transition-colors duration-300">
-                  <Icon class="w-6 h-6 text-stone-100" />
-                </div>
-              </div>
-              <div>
-                <h3 class="text-base font-medium text-stone-800 mb-1.5">
-                  {amenity.title}
-                </h3>
-                <p class="text-stone-600 text-sm leading-relaxed font-light">
-                  {amenity.description}
-                </p>
-              </div>
-            </div>
-          </div>
-        );
-      })}
-    </div>
-
-    <!-- Extra Info -->
-    <div class="mt-16 bg-stone-100 rounded-lg p-8 border border-stone-200">
-      <div class="flex items-start gap-5">
-        <Home class="w-11 h-11 text-stone-700 flex-shrink-0" />
-        <div>
-          <h3 class="text-xl font-medium text-stone-800 mb-3">
-            Cuatro Habitaciones
-          </h3>
-          <p class="text-stone-600 leading-relaxed font-light">
-            Las habitaciones <strong>Edén</strong>, <strong>Cielo</strong> y <strong>Nubes</strong>
-            en planta alta cuentan con baño completo independiente y agua caliente.
-            La planta baja <strong>Paraíso</strong> ofrece privacidad adicional.
-          </p>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Section Header -->
+        <div class="text-center mb-16">
+            <h2
+                class="text-4xl md:text-5xl font-light tracking-tight text-stone-800 mb-4"
+            >
+                Amenidades
+            </h2>
+            <p class="text-lg text-stone-600 font-light max-w-2xl mx-auto">
+                Todo lo necesario para una estancia memorable
+            </p>
         </div>
-      </div>
+
+        <!-- Amenities Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {
+                amenities.map((amenity, index) => {
+                    const Icon = amenity.icon;
+                    return (
+                        <div
+                            class="amenity-card group bg-stone-50 rounded-lg p-6 hover:bg-white hover:shadow-md transition-all duration-300 border border-stone-200"
+                            data-index={index}
+                        >
+                            <div class="flex items-start gap-4">
+                                <div class="shrink-0">
+                                    <div class="w-12 h-12 bg-stone-800 rounded flex items-center justify-center group-hover:bg-stone-700 transition-colors duration-300">
+                                        <Icon class="w-6 h-6 text-stone-100" />
+                                    </div>
+                                </div>
+                                <div>
+                                    <h3 class="text-base font-medium text-stone-800 mb-1.5">
+                                        {amenity.title}
+                                    </h3>
+                                    <p class="text-stone-600 text-sm leading-relaxed font-light">
+                                        {amenity.description}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    );
+                })
+            }
+        </div>
+
+        <!-- Extra Info -->
+        <div class="mt-16 bg-stone-100 rounded-lg p-8 border border-stone-200">
+            <div class="flex items-start gap-5">
+                <Home class="w-11 h-11 text-stone-700 flex-shrink-0" />
+                <div>
+                    <h3 class="text-xl font-medium text-stone-800 mb-3">
+                        Cuatro Habitaciones
+                    </h3>
+                    <p class="text-stone-600 leading-relaxed font-light">
+                        Las habitaciones <strong>Edén</strong>, <strong
+                            >Cielo</strong
+                        > y <strong>Nubes</strong>
+                        en planta alta cuentan con baño completo independiente y agua
+                        caliente. La planta baja <strong>Paraíso</strong> ofrece privacidad
+                        adicional.
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
 </section>
 
 <script>
-  // Intersection Observer for scroll animations
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-fade-in-up');
-        }
-      });
-    },
-    {
-      threshold: 0.1,
-      rootMargin: '50px'
-    }
-  );
+    // Intersection Observer for scroll animations
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("animate-fade-in-up");
+                }
+            });
+        },
+        {
+            threshold: 0.1,
+            rootMargin: "50px",
+        },
+    );
 
-  const amenityCards = document.querySelectorAll('.amenity-card');
-  amenityCards.forEach((card) => observer.observe(card));
+    const amenityCards = document.querySelectorAll(".amenity-card");
+    amenityCards.forEach((card) => observer.observe(card));
 </script>
 
 <style>
-  .amenity-card {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-
-  .amenity-card.animate-fade-in-up {
-    animation: fadeInUp 0.6s ease-out forwards;
-  }
-
-  .amenity-card[data-index="0"].animate-fade-in-up { animation-delay: 0s; }
-  .amenity-card[data-index="1"].animate-fade-in-up { animation-delay: 0.1s; }
-  .amenity-card[data-index="2"].animate-fade-in-up { animation-delay: 0.2s; }
-  .amenity-card[data-index="3"].animate-fade-in-up { animation-delay: 0.3s; }
-  .amenity-card[data-index="4"].animate-fade-in-up { animation-delay: 0.4s; }
-  .amenity-card[data-index="5"].animate-fade-in-up { animation-delay: 0.5s; }
-  .amenity-card[data-index="6"].animate-fade-in-up { animation-delay: 0.6s; }
-  .amenity-card[data-index="7"].animate-fade-in-up { animation-delay: 0.7s; }
-  .amenity-card[data-index="8"].animate-fade-in-up { animation-delay: 0.8s; }
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
+    .amenity-card {
+        opacity: 0;
+        transform: translateY(30px);
     }
-    to {
-      opacity: 1;
-      transform: translateY(0);
+
+    .amenity-card.animate-fade-in-up {
+        animation: fadeInUp 0.6s ease-out forwards;
     }
-  }
+
+    .amenity-card[data-index="0"].animate-fade-in-up {
+        animation-delay: 0s;
+    }
+    .amenity-card[data-index="1"].animate-fade-in-up {
+        animation-delay: 0.1s;
+    }
+    .amenity-card[data-index="2"].animate-fade-in-up {
+        animation-delay: 0.2s;
+    }
+    .amenity-card[data-index="3"].animate-fade-in-up {
+        animation-delay: 0.3s;
+    }
+    .amenity-card[data-index="4"].animate-fade-in-up {
+        animation-delay: 0.4s;
+    }
+    .amenity-card[data-index="5"].animate-fade-in-up {
+        animation-delay: 0.5s;
+    }
+    .amenity-card[data-index="6"].animate-fade-in-up {
+        animation-delay: 0.6s;
+    }
+    .amenity-card[data-index="7"].animate-fade-in-up {
+        animation-delay: 0.7s;
+    }
+    .amenity-card[data-index="8"].animate-fade-in-up {
+        animation-delay: 0.8s;
+    }
+
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
 </style>
