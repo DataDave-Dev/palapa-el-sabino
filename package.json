@@ -15,7 +15,7 @@
     "@astrojs/db": "^0.20.1",
     "@astrojs/node": "^10.0.5",
     "@astrojs/react": "^5.0.4",
-    "@astrojs/vercel": "^8.0.4",
+    "@astrojs/vercel": "^10.0.5",
     "@fontsource-variable/onest": "^5.2.11",
     "@lottiefiles/react-lottie-player": "^3.6.0",
     "@lucide/astro": "^1.8.0",
