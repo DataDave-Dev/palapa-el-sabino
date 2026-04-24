@@ -1,0 +1,146 @@
+---
+import { MapPin, Clock, Users } from "@lucide/astro";
+---
+
+<section
+    id="hero"
+    class="relative h-screen min-h-full text-white flex items-center justify-center overflow-hidden"
+>
+    <!-- Background Image -->
+    <div class="absolute inset-0 z-0">
+        <img
+            src="/images/WhatsApp Image 2026-03-03 at 4.26.26 PM (5).jpeg"
+            alt="Vista panorámica de Quinta El Cielo"
+            class="w-full h-full object-cover"
+        />
+
+        <!-- Overlay negro -->
+        <div class="absolute inset-0 bg-black/60"></div>
+    </div>
+
+    <!-- Content -->
+    <div
+        class="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto"
+    >
+        <!-- Badge -->
+        <div class="mb-8 animate-fade-down">
+            <span
+                class="inline-flex items-center gap-2 px-4 py-2 bg-bone/10 backdrop-blur-sm border border-bone/20 rounded-full text-bone text-sm font-medium"
+            >
+                <MapPin class="w-4 h-4" />
+                Sierra de Arteaga, Coahuila
+            </span>
+        </div>
+
+        <!-- Title -->
+        <h1
+            class="text-5xl md:text-7xl lg:text-8xl font-bold text-bone mb-6 animate-fade-up"
+        >
+            Cabaña <span class="text-sunset">Quinta El Cielo</span>
+        </h1>
+
+        <!-- Subtitle -->
+        <p
+            class="text-xl md:text-2xl text-bone/90 mb-3 animate-fade-up"
+            style="animation-delay: 0.1s;"
+        >
+            A 3,550m sobre el nivel del mar
+        </p>
+
+        <!-- Tagline -->
+        <p
+            class="text-lg md:text-xl text-sunset-light italic mb-10 animate-fade-up"
+            style="animation-delay: 0.2s;"
+        >
+            "Donde el cielo se toca con las manos"
+        </p>
+
+        <!-- CTAs -->
+        <div
+            class="flex flex-col sm:flex-row gap-4 justify-center mb-16 animate-fade-up"
+            style="animation-delay: 0.3s;"
+        >
+            <a
+                href="#reservar"
+                class="px-8 py-4 bg-sunset text-night font-semibold rounded-full hover:bg-sunset-dark transform hover:scale-105 transition-all duration-300 shadow-lg"
+            >
+                Reservar ahora
+            </a>
+            <a
+                href="#galeria"
+                class="px-8 py-4 bg-bone/10 backdrop-blur-sm border-2 border-bone text-bone font-semibold rounded-full hover:border-black hover:bg-white hover:text-[#074628] transform hover:scale-105 transition-all duration-300"
+            >
+                Ver galería
+            </a>
+        </div>
+
+        <!-- Info Pills -->
+        <div
+            class="flex flex-wrap gap-4 justify-center animate-fade-up"
+            style="animation-delay: 0.4s;"
+        >
+            <div
+                class="flex items-center gap-2 px-4 py-2 bg-bone/10 backdrop-blur-sm rounded-full text-bone text-sm"
+            >
+                <Clock class="w-4 h-4" />
+                <span>80 min de Monterrey</span>
+            </div>
+            <div
+                class="flex items-center gap-2 px-4 py-2 bg-bone/10 backdrop-blur-sm rounded-full text-bone text-sm"
+            >
+                <Users class="w-4 h-4" />
+                <span>15-20 personas</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div
+        class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce"
+    >
+        <svg
+            class="w-6 h-6 text-bone/60"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+        >
+            <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+        </svg>
+    </div>
+</section>
+
+<style>
+    @keyframes fade-down {
+        from {
+            opacity: 0;
+            transform: translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes fade-up {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .animate-fade-down {
+        animation: fade-down 0.8s ease-out;
+    }
+
+    .animate-fade-up {
+        animation: fade-up 0.8s ease-out;
+    }
+</style>

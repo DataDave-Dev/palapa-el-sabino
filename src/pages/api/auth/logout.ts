@@ -1,11 +1,8 @@
-import type { APIRoute } from 'astro';
-import { clearSessionCookie } from '../../../lib/auth';
+import type { APIRoute } from "astro";
+import { clearSessionCookie } from "../../../lib/auth";
 
 export const POST: APIRoute = async ({ cookies }) => {
   clearSessionCookie(cookies);
 
-  return new Response(
-    JSON.stringify({ success: true }),
-    { status: 200 }
-  );
+  return Response.redirect("/");
 };

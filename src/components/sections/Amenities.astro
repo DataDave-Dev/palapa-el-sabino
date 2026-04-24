@@ -1,0 +1,63 @@
+---
+import { Bed, Utensils, Flame, Droplets, Home, Trees } from '@lucide/astro';
+
+const rooms = [
+    { name: 'Edén', beds: 'Cama King Size', bathroom: 'Baño completo con agua caliente' },
+    { name: 'Cielo', beds: '2 camas individuales', bathroom: 'Baño completo con agua caliente' },
+    { name: 'Nubes', beds: '2 camas individuales', bathroom: 'Baño completo con agua caliente' },
+    { name: 'Paraíso', beds: '2 camas individuales + 1 litera', bathroom: 'Planta baja' }
+];
+
+const amenities = [
+    { icon: Bed, name: 'Camas', detail: '1 litera, 6 camas individuales, 1 King Size' },
+    { icon: Utensils, name: 'Cocina equipada', detail: 'Estufa de gas, refrigerador, fregadero' },
+    { icon: Flame, name: 'Asador exterior', detail: 'Disco y parrilla para carnes' },
+    { icon: Droplets, name: 'Agua caliente', detail: 'En todas las habitaciones de planta alta' },
+    { icon: Home, name: '4 Baños completos', detail: '3 en planta alta + 1/2 baño en planta baja' },
+    { icon: Trees, name: 'Vista natural', detail: 'Rodeado de flora y fauna de montaña' }
+];
+---
+
+<section id="amenidades" class="py-20 md:py-32 bg-gradient-to-b from-bone to-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="text-center mb-16">
+            <span class="text-sm font-semibold text-sunset uppercase tracking-wider">Comodidades</span>
+            <h2 class="mt-4 text-4xl md:text-5xl font-bold text-night">
+                Habitaciones y Amenidades
+            </h2>
+        </div>
+
+        <!-- Rooms Section -->
+        <div class="mb-16">
+            <h3 class="text-2xl font-semibold text-night mb-8 text-center">Habitaciones</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {rooms.map((room) => (
+                    <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow border border-sunset/10">
+                        <h4 class="text-xl font-semibold text-forest mb-3">{room.name}</h4>
+                        <p class="text-sm text-night/70 mb-2">{room.beds}</p>
+                        <p class="text-xs text-night/50">{room.bathroom}</p>
+                    </div>
+                ))}
+            </div>
+        </div>
+
+        <!-- Amenities Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {amenities.map((amenity) => {
+                const Icon = amenity.icon;
+                return (
+                    <div class="flex gap-4">
+                        <div class="flex-shrink-0 w-12 h-12 bg-sunset/10 rounded-lg flex items-center justify-center">
+                            <Icon class="w-6 h-6 text-sunset" />
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-night mb-1">{amenity.name}</h4>
+                            <p class="text-sm text-night/60">{amenity.detail}</p>
+                        </div>
+                    </div>
+                );
+            })}
+        </div>
+    </div>
+</section>

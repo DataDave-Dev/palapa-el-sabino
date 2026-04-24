@@ -32,10 +32,11 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       );
     }
 
-    // Validar número de huéspedes
-    if (guests < 1 || guests > 20) {
+    // Validar número de huéspedes según tipo
+    const maxGuests = tipo === 'baja' ? 8 : 20;
+    if (guests < 1 || guests > maxGuests) {
       return new Response(
-        JSON.stringify({ error: 'Número de huéspedes inválido (1-20)' }),
+        JSON.stringify({ error: `Número de huéspedes inválido (1-${maxGuests})` }),
         { status: 400 }
       );
     }
@@ -60,6 +61,23 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       );
     }
 
+    // Validar que sea viernes a domingo (3 días)
+    const daysDiff = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
+    if (daysDiff !== 2) {
+      return new Response(
+        JSON.stringify({ error: 'Solo se permiten reservas de fin de semana (Viernes a Domingo)' }),
+        { status: 400 }
+      );
+    }
+
+    // Validar que empiece en viernes (día 5)
+    if (start.getDay() !== 5) {
+      return new Response(
+        JSON.stringify({ error: 'Las reservas deben iniciar en viernes' }),
+        { status: 400 }
+      );
+    }
+
     // Verificar disponibilidad
     const existingBookings = await db
       .select()
@@ -80,6 +98,13 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       }
     }
 
+    // Calcular precio total basado en el tipo (fin de semana completo)
+    const precios = {
+      baja: 5499,
+      completa: 8500
+    };
+    const totalPrice = precios[tipo as keyof typeof precios];
+
     // Crear reserva
     const result = await db.insert(Bookings).values({
       userId: user.userId,
@@ -87,6 +112,7 @@ export const POST: APIRoute = async ({ request, cookies }) => {
       endDate: end,
       tipo,
       guests,
+      totalPrice,
       notes: notes || null,
       status: 'pendiente_confirmacion'
     }).returning();

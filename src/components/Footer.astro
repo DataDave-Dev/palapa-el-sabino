@@ -1,89 +1,130 @@
-<footer class="footer">
-    <div class="container">
-        <div class="footer-content">
-            <div class="footer-brand">
-                <h3 class="footer-logo">Palapa</h3>
-                <p class="footer-tagline">El Sabino</p>
+---
+import { Mountain, Phone, Mail, Instagram, Facebook } from "lucide-astro";
+---
+
+<footer class="bg-night text-bone">
+    <div class="mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <!-- Brand -->
+            <div class="col-span-1 md:col-span-2">
+                <div class="flex items-center gap-3 mb-4">
+                    <img
+                        src="/logo.png"
+                        alt="Quinta El Cielo Logo"
+                        class="w-24 h-24 object-contain"
+                    />
+                    <span class="text-2xl font-bold">Quinta El Cielo</span>
+                </div>
+                <p class="text-bone/70 mb-4">
+                    Tu refugio exclusivo en las alturas de la Sierra de Arteaga.
+                    Donde el cielo se toca con las manos.
+                </p>
+                <div class="flex gap-4">
+                    <a
+                        href="https://instagram.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="w-10 h-10 bg-bone/10 hover:bg-sunset rounded-full flex items-center justify-center transition-colors"
+                    >
+                        <Instagram class="w-5 h-5" />
+                    </a>
+                    <a
+                        href="https://facebook.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="w-10 h-10 bg-bone/10 hover:bg-sunset rounded-full flex items-center justify-center transition-colors"
+                    >
+                        <Facebook class="w-5 h-5" />
+                    </a>
+                </div>
             </div>
-            <div class="footer-info">
-                <p>Sierra de Arteaga, Coahuila</p>
-                <p>3,550m de altitud</p>
+
+            <!-- Links -->
+            <div>
+                <h3 class="font-semibold mb-4 text-sunset">Enlaces</h3>
+                <ul class="space-y-2">
+                    <li>
+                        <a
+                            href="#cabana"
+                            class="text-bone/70 hover:text-sunset transition-colors"
+                            >La Cabaña</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="/#amenidades"
+                            class="text-bone/70 hover:text-sunset transition-colors"
+                            >Amenidades</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="/#galeria"
+                            class="text-bone/70 hover:text-sunset transition-colors"
+                            >Galería</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="/#valoraciones"
+                            class="text-bone/70 hover:text-sunset transition-colors"
+                            >Valoraciones</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="/reservar"
+                            class="text-bone/70 hover:text-sunset transition-colors"
+                            >Reservar</a
+                        >
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Contact -->
+            <div>
+                <h3 class="font-semibold mb-4 text-sunset">Contacto</h3>
+                <ul class="space-y-3">
+                    <li class="flex items-center gap-2 text-bone/70">
+                        <Phone class="w-4 h-4" />
+                        <a
+                            href="tel:+528110000000"
+                            class="hover:text-sunset transition-colors"
+                        >
+                            +52 811 000 0000
+                        </a>
+                    </li>
+                    <li class="flex items-center gap-2 text-bone/70">
+                        <Mail class="w-4 h-4" />
+                        <a
+                            href="mailto:info@quintaelcielo.com"
+                            class="hover:text-sunset transition-colors"
+                        >
+                            elcielocabana.oficial@gmail.com
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p class="footer-copyright">© 2026 Palapa El Sabino</p>
+
+        <!-- Bottom -->
+        <div class="pt-8 border-t border-bone/10">
+            <div
+                class="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-bone/60"
+            >
+                <p>
+                    © 2026 Cabaña Quinta El Cielo. Todos los derechos
+                    reservados.
+                </p>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-sunset transition-colors"
+                        >Privacidad</a
+                    >
+                    <a href="#" class="hover:text-sunset transition-colors"
+                        >Términos</a
+                    >
+                </div>
+            </div>
         </div>
     </div>
 </footer>
-
-<style>
-    /* Footer */
-    .footer {
-        background: #000;
-        color: #fff;
-        padding: 4rem 0 2rem;
-    }
-
-    .footer-content {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        margin-bottom: 3rem;
-        padding-bottom: 3rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .footer-brand {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
-    .footer-logo {
-        font-size: 1.5rem;
-        font-weight: 700;
-        letter-spacing: -0.02em;
-        margin: 0;
-    }
-
-    .footer-tagline {
-        font-size: 0.875rem;
-        font-weight: 300;
-        color: #a3a3a3;
-        margin: 0;
-    }
-
-    .footer-info {
-        text-align: right;
-    }
-
-    .footer-info p {
-        font-size: 0.875rem;
-        font-weight: 400;
-        color: #a3a3a3;
-        margin: 0 0 0.5rem;
-    }
-
-    .footer-bottom {
-        text-align: center;
-    }
-
-    .footer-copyright {
-        font-size: 0.75rem;
-        font-weight: 400;
-        color: #737373;
-        margin: 0;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-        .footer-content {
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .footer-info {
-            text-align: left;
-        }
-    }
-</style>

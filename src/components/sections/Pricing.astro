@@ -1,0 +1,132 @@
+---
+import { Check } from "@lucide/astro";
+
+const plans = [
+    {
+        name: "Planta Baja",
+        subtitle: "Paraíso",
+        price: "5,499",
+        duration: "Fin de Semana",
+        features: [
+            "Habitación Paraíso",
+            "Capacidad: 6-8 personas",
+            "Acceso a cocina equipada",
+            "Estufa de gas y refrigerador",
+            "Asador y disco",
+            "Fregadero y lavamanos",
+            "1/2 baño",
+            "Viernes a Domingo (3 días, 2 noches)",
+        ],
+        highlight: false,
+    },
+    {
+        name: "Cabaña Completa",
+        subtitle: "Planta Baja + Alta",
+        price: "8,500",
+        duration: "Fin de Semana",
+        features: [
+            "Capacidad: 15-20 personas",
+            "1 litera, 6 camas individuales y 1 cama King Size",
+            "3 habitaciones en planta alta: Edén, Cielo y Nubes",
+            "Cada habitación con baño completo y agua caliente",
+            "Vista espectacular desde las habitaciones",
+            "Cocina equipada: estufa, refrigerador, fregadero",
+            "Asador en la parte exterior y disco",
+            "1/2 baño adicional",
+            "Ubicada a 3,550m sobre el nivel del mar",
+            "Gran variedad de flora y fauna",
+            "Viernes a Domingo (3 días, 2 noches)",
+        ],
+        highlight: true,
+    },
+];
+---
+
+<section id="precios" class="py-20 md:py-32 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="text-center mb-16">
+            <span
+                class="text-sm font-semibold text-sunset uppercase tracking-wider"
+                >Planes</span
+            >
+            <h2 class="mt-4 text-4xl md:text-5xl font-bold text-night">
+                Elige tu experiencia
+            </h2>
+            <p class="mt-4 text-lg text-night/70">
+                Precios para fines de semana · Check-in viernes 4pm · Check-out
+                domingo 2pm
+            </p>
+        </div>
+
+        <!-- Pricing Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {
+                plans.map((plan) => (
+                    <div
+                        class:list={[
+                            "relative bg-white rounded-2xl p-8 shadow-lg border-2 transition-all duration-300 hover:shadow-2xl",
+                            plan.highlight
+                                ? "border-sunset scale-105"
+                                : "border-forest/10 hover:border-forest/30",
+                        ]}
+                    >
+                        <div class="text-center mb-6">
+                            <h3 class="text-2xl font-bold text-night mb-1">
+                                {plan.name}
+                            </h3>
+                            <p class="text-sm text-night/60">{plan.subtitle}</p>
+                        </div>
+
+                        <div class="text-center mb-6">
+                            <div class="flex items-baseline justify-center">
+                                <span class="text-4xl font-bold text-forest">
+                                    $
+                                </span>
+                                <span class="text-5xl font-bold text-forest">
+                                    {plan.price}
+                                </span>
+                                <span class="text-xl text-night/60 ml-2">
+                                    MXN
+                                </span>
+                            </div>
+                            <p class="text-sm text-night/60 mt-2">
+                                {plan.duration}
+                            </p>
+                        </div>
+
+                        <ul class="space-y-3 mb-8">
+                            {plan.features.map((feature) => (
+                                <li class="flex items-start gap-3">
+                                    <Check
+                                        class:list={[
+                                            "w-5 h-5 flex-shrink-0 mt-0.5",
+                                            plan.highlight
+                                                ? "text-sunset"
+                                                : "text-forest",
+                                        ]}
+                                    />
+                                    <span class="text-night/80 text-sm">
+                                        {feature}
+                                    </span>
+                                </li>
+                            ))}
+                        </ul>
+
+                        <a
+                            href="/reservar"
+                            class:list={[
+                                "block w-full py-3 rounded-full font-semibold text-center transition-all duration-300",
+                                plan.highlight
+                                    ? "bg-sunset text-night hover:bg-sunset-dark"
+                                    : "bg-forest text-bone hover:bg-forest-dark",
+                            ]}
+                        >
+                            Reservar este plan
+                        </a>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+</section>

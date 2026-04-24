@@ -1,0 +1,65 @@
+---
+import { Users, Mountain, Sparkles, Car } from '@lucide/astro';
+
+const features = [
+    {
+        icon: Users,
+        title: 'Capacidad',
+        description: '15 a 20 personas',
+        detail: 'Espacio amplio y confortable para grupos grandes'
+    },
+    {
+        icon: Mountain,
+        title: 'Altitud',
+        description: '3,550m sobre el nivel del mar',
+        detail: 'Aire puro y vistas incomparables'
+    },
+    {
+        icon: Sparkles,
+        title: 'Cielo Estrellado',
+        description: 'Vista única al firmamento',
+        detail: 'Contempla las estrellas como nunca antes'
+    },
+    {
+        icon: Car,
+        title: 'Acceso',
+        description: 'Cualquier vehículo',
+        detail: 'Camino de concreto hidráulico en perfectas condiciones'
+    }
+];
+---
+
+<section id="cabana" class="py-20 md:py-32 bg-bone">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="text-center mb-16">
+            <span class="text-sm font-semibold text-sunset uppercase tracking-wider">Sobre la Cabaña</span>
+            <h2 class="mt-4 text-4xl md:text-5xl font-bold text-night">
+                Un refugio único en las alturas
+            </h2>
+            <p class="mt-4 text-lg text-night/70 max-w-2xl mx-auto">
+                Experimenta la tranquilidad de la montaña con todas las comodidades modernas
+            </p>
+        </div>
+
+        <!-- Features Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((feature, index) => {
+                const Icon = feature.icon;
+                return (
+                    <div
+                        class="bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-forest/5"
+                        style={`animation-delay: ${index * 0.1}s`}
+                    >
+                        <div class="w-14 h-14 bg-gradient-forest rounded-xl flex items-center justify-center mb-6">
+                            <Icon class="w-7 h-7 text-bone" />
+                        </div>
+                        <h3 class="text-xl font-semibold text-night mb-2">{feature.title}</h3>
+                        <p class="text-lg font-medium text-forest mb-2">{feature.description}</p>
+                        <p class="text-sm text-night/60">{feature.detail}</p>
+                    </div>
+                );
+            })}
+        </div>
+    </div>
+</section>

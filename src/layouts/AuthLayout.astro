@@ -1,0 +1,58 @@
+---
+import "../styles/global.css";
+import "../styles/calendar.css";
+import "@fontsource-variable/onest/wght.css";
+
+interface Props {
+    title?: string;
+    description?: string;
+}
+
+const {
+    title = "Quinta El Cielo - Autenticación",
+    description = "Inicia sesión o regístrate en Quinta El Cielo",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="description" content={description} />
+
+        <!-- Favicon -->
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" href="/favicon.ico" />
+
+        <!-- Open Graph -->
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:type" content="website" />
+
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
+
+        <meta name="generator" content={Astro.generator} />
+        <title>{title}</title>
+
+        <!-- Preconnect -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    </head>
+    <body class="font-sans text-night bg-gray-50">
+        <!-- Main Content -->
+        <main>
+            <slot />
+        </main>
+    </body>
+</html>
+
+<style is:global>
+    html,
+    body {
+        font-family: "Onest Variable", sans-serif;
+    }
+</style>

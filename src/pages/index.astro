@@ -1,234 +1,57 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Hero from '../components/Hero.astro';
-import Gallery from '../components/Gallery.astro';
+import Layout from "../layouts/Layout.astro";
+import Navigation from "../components/Navigation.astro";
+import Hero from "../components/sections/Hero.astro";
+import Features from "../components/sections/Features.astro";
+import Amenities from "../components/sections/Amenities.astro";
+import Pricing from "../components/sections/Pricing.astro";
+import Gallery from "../components/sections/Gallery.astro";
+import Reviews from "../components/sections/Reviews.astro";
+import Location from "../components/sections/Location.astro";
+import Footer from "../components/Footer.astro";
 ---
 
-<Layout>
-	<Hero />
+<Layout title="Cabaña Quinta El Cielo - Donde el cielo se toca con las manos">
+    <Navigation slot="nav" />
 
-	<!-- Experience Section -->
-	<section class="experience-section">
-		<div class="container">
-			<div class="experience-grid">
-				<div class="experience-content">
-					<h2 class="section-title">
-						Un refugio único
-					</h2>
-					<p class="section-text">
-						Descubre la perfecta combinación entre naturaleza salvaje y comodidad moderna.
-						A 3,550 metros de altitud, nuestra cabaña te ofrece vistas espectaculares,
-						aire puro de montaña y la tranquilidad que necesitas para desconectar.
-					</p>
-					<div class="experience-features">
-						<div class="feature">
-							<span class="feature-number">4</span>
-							<span class="feature-label">Habitaciones</span>
-						</div>
-						<div class="feature">
-							<span class="feature-number">20</span>
-							<span class="feature-label">Huéspedes</span>
-						</div>
-						<div class="feature">
-							<span class="feature-number">2</span>
-							<span class="feature-label">Palapas</span>
-						</div>
-					</div>
-					<a href="/cabana" class="explore-link">
-						Explorar la cabaña →
-					</a>
-				</div>
-				<div class="experience-image">
-					<img
-						src="/images/WhatsApp Image 2026-03-03 at 4.26.26 PM (1).jpeg"
-						alt="Interior de la cabaña"
-						loading="lazy"
-					/>
-				</div>
-			</div>
-		</div>
-	</section>
+    <Hero />
+    <Features />
+    <Amenities />
+    <Pricing />
+    <Gallery />
+    <Reviews />
+    <Location />
 
-	<!-- Gallery Preview -->
-	<Gallery />
+    <!-- Booking Section -->
+    <section id="reservar" class="py-20 md:py-32 bg-bone">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <span
+                class="text-sm font-semibold text-sunset uppercase tracking-wider"
+                >Reserva tu Experiencia</span
+            >
+            <h2 class="mt-4 text-4xl md:text-5xl font-bold text-night mb-6">
+                Comienza tu aventura en las alturas
+            </h2>
+            <p class="text-lg text-night/70 mb-8">
+                Reserva tu estadía en Quinta El Cielo y vive una experiencia
+                única a 3,550m sobre el nivel del mar.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a
+                    href="/reservar"
+                    class="px-8 py-4 bg-black text-white rounded-full font-bold hover:shadow-xl hover:scale-105 transition-all duration-300"
+                >
+                    Reservar Ahora
+                </a>
+                <a
+                    href="#precios"
+                    class="px-8 py-4 bg-white text-night rounded-full font-semibold border-2 border-black hover:bg-black hover:text-white transition-colors"
+                >
+                    Ver Precios
+                </a>
+            </div>
+        </div>
+    </section>
 
-	<!-- CTA Section -->
-	<section class="cta-section">
-		<div class="container-narrow">
-			<h2 class="cta-title">
-				Comienza tu escape
-			</h2>
-			<p class="cta-text">
-				Disponibilidad limitada. Reserva tu fecha ideal hoy.
-			</p>
-			<a href="/reservar" class="cta-button">
-				Ver disponibilidad
-			</a>
-		</div>
-	</section>
+    <Footer slot="footer" />
 </Layout>
-
-<style>
-	/* Experience Section */
-	.experience-section {
-		padding: 8rem 0;
-		background: #fff;
-	}
-
-	.experience-grid {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 6rem;
-		align-items: center;
-	}
-
-	.experience-content {
-		padding-right: 2rem;
-	}
-
-	.section-title {
-		font-size: clamp(2.5rem, 5vw, 4rem);
-		font-weight: 700;
-		line-height: 1;
-		letter-spacing: -0.03em;
-		color: #000;
-		margin-bottom: 2rem;
-	}
-
-	.section-text {
-		font-size: 1.125rem;
-		line-height: 1.7;
-		color: #737373;
-		margin-bottom: 3rem;
-	}
-
-	.experience-features {
-		display: flex;
-		gap: 3rem;
-		margin-bottom: 3rem;
-	}
-
-	.feature {
-		display: flex;
-		flex-direction: column;
-		gap: 0.5rem;
-	}
-
-	.feature-number {
-		font-size: 2.5rem;
-		font-weight: 700;
-		color: #000;
-		line-height: 1;
-	}
-
-	.feature-label {
-		font-size: 0.875rem;
-		font-weight: 400;
-		color: #737373;
-		text-transform: uppercase;
-		letter-spacing: 0.05em;
-	}
-
-	.explore-link {
-		font-size: 1rem;
-		font-weight: 500;
-		color: #000;
-		text-decoration: none;
-		display: inline-flex;
-		align-items: center;
-		transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-	}
-
-	.explore-link:hover {
-		transform: translateX(4px);
-		opacity: 0.7;
-	}
-
-	.experience-image {
-		position: relative;
-		overflow: hidden;
-		border-radius: 0;
-		height: 600px;
-	}
-
-	.experience-image img {
-		width: 100%;
-		height: 100%;
-		object-fit: cover;
-		transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-	}
-
-	.experience-image:hover img {
-		transform: scale(1.05);
-	}
-
-	/* CTA Section */
-	.cta-section {
-		padding: 8rem 0;
-		background: #fafafa;
-		text-align: center;
-	}
-
-	.cta-title {
-		font-size: clamp(2.5rem, 5vw, 3.5rem);
-		font-weight: 700;
-		line-height: 1;
-		letter-spacing: -0.03em;
-		color: #000;
-		margin-bottom: 1.5rem;
-	}
-
-	.cta-text {
-		font-size: 1.125rem;
-		color: #737373;
-		margin-bottom: 3rem;
-	}
-
-	.cta-button {
-		display: inline-block;
-		padding: 1rem 3rem;
-		background: #000;
-		color: #fff;
-		font-size: 1rem;
-		font-weight: 500;
-		border-radius: 100px;
-		text-decoration: none;
-		transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-	}
-
-	.cta-button:hover {
-		background: #171717;
-		transform: translateY(-2px);
-	}
-
-	/* Responsive */
-	@media (max-width: 1024px) {
-		.experience-grid {
-			grid-template-columns: 1fr;
-			gap: 3rem;
-		}
-
-		.experience-content {
-			padding-right: 0;
-		}
-
-		.experience-image {
-			height: 400px;
-		}
-	}
-
-	@media (max-width: 768px) {
-		.experience-section,
-		.cta-section {
-			padding: 4rem 0;
-		}
-
-		.experience-features {
-			gap: 2rem;
-		}
-
-		.feature-number {
-			font-size: 2rem;
-		}
-	}
-</style>

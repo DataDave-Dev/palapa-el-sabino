@@ -1,0 +1,39 @@
+---
+const images = [
+    '/images/WhatsApp Image 2026-03-03 at 4.26.26 PM (5).jpeg',
+    '/images/WhatsApp Image 2026-03-03 at 4.26.26 PM (1).jpeg',
+    '/images/WhatsApp Image 2026-03-03 at 4.26.26 PM (2).jpeg',
+    '/images/WhatsApp Image 2026-03-03 at 4.26.27 PM.jpeg',
+    '/images/IMG_20250817_170915.jpg',
+    '/images/IMG_20250817_165757.jpg',
+    '/images/IMG_20250921_175918.jpg',
+    '/images/IMG_20250921_175936.jpg'
+];
+---
+
+<section id="galeria" class="py-20 md:py-32 bg-bone">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="text-center mb-16">
+            <span class="text-sm font-semibold text-sunset uppercase tracking-wider">Galería</span>
+            <h2 class="mt-4 text-4xl md:text-5xl font-bold text-night">
+                Descubre la belleza de las alturas
+            </h2>
+        </div>
+
+        <!-- Gallery Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {images.map((image, index) => (
+                <div class="relative aspect-square overflow-hidden rounded-xl group cursor-pointer">
+                    <img
+                        src={image}
+                        alt={`Vista ${index + 1} de Quinta El Cielo`}
+                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                        loading="lazy"
+                    />
+                    <div class="absolute inset-0 bg-night/0 group-hover:bg-night/30 transition-colors duration-300"></div>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>

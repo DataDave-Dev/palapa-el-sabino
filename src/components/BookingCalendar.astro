@@ -1,0 +1,499 @@
+---
+import {
+    Calendar,
+    Users,
+    FileText,
+    Home,
+    Building2,
+    CheckCircle2,
+} from "lucide-astro";
+---
+
+<div class="max-w-4xl mx-auto">
+    <div class="bg-white rounded-2xl shadow-xl p-8">
+        <h2 class="text-3xl font-bold text-night mb-6">Reserva tu Estadía</h2>
+
+        <form id="booking-form" class="space-y-6">
+            <!-- Tipo de Cabaña -->
+            <div>
+                <label
+                    class="block text-sm font-semibold text-night mb-3 flex items-center gap-2"
+                >
+                    <Home class="w-4 h-4" />
+                    Tipo de Cabaña
+                </label>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <label class="relative cursor-pointer group">
+                        <input
+                            type="radio"
+                            name="tipo"
+                            value="baja"
+                            class="peer sr-only"
+                            required
+                        />
+                        <div
+                            class="relative p-6 border-2 border-gray-200 rounded-2xl peer-checked:border-[3px] peer-checked:border-black peer-checked:scale-[1.02] transition-all hover:border-gray-400"
+                        >
+                            <!-- Check Icon -->
+                            <div
+                                class="absolute top-4 right-4 opacity-0 peer-checked:opacity-100 transition-opacity"
+                            >
+                                <div
+                                    class="w-7 h-7 rounded-full bg-black flex items-center justify-center shadow-lg"
+                                >
+                                    <CheckCircle2 class="w-5 h-5 text-white" />
+                                </div>
+                            </div>
+
+                            <!-- Icon -->
+                            <div
+                                class="w-12 h-12 bg-forest/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-forest/20 transition-colors"
+                            >
+                                <Home class="w-6 h-6 text-forest" />
+                            </div>
+
+                            <h3 class="font-bold text-xl text-night mb-1">
+                                Planta Baja
+                            </h3>
+                            <p class="text-sm text-night/60 mb-4">
+                                Paraíso • Fin de semana
+                            </p>
+
+                            <div class="flex items-baseline gap-1">
+                                <span class="text-3xl font-bold text-forest"
+                                    >$5,499</span
+                                >
+                                <span class="text-sm text-night/50">MXN</span>
+                            </div>
+                        </div>
+                    </label>
+
+                    <label class="relative cursor-pointer group">
+                        <input
+                            type="radio"
+                            name="tipo"
+                            value="completa"
+                            class="peer sr-only"
+                        />
+                        <div
+                            class="relative p-6 border-2 border-gray-200 rounded-2xl peer-checked:border-[3px] peer-checked:border-black peer-checked:scale-[1.02] transition-all hover:border-gray-400"
+                        >
+                            <!-- Check Icon -->
+                            <div
+                                class="absolute top-4 right-4 opacity-0 peer-checked:opacity-100 transition-opacity"
+                            >
+                                <div
+                                    class="w-7 h-7 rounded-full bg-black flex items-center justify-center shadow-lg"
+                                >
+                                    <CheckCircle2 class="w-5 h-5 text-white" />
+                                </div>
+                            </div>
+
+                            <!-- Icon -->
+                            <div
+                                class="w-12 h-12 bg-sunset/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-sunset/20 transition-colors"
+                            >
+                                <Building2 class="w-6 h-6 text-sunset" />
+                            </div>
+
+                            <h3 class="font-bold text-xl text-night mb-1">
+                                Cabaña Completa
+                            </h3>
+                            <p class="text-sm text-night/60 mb-4">
+                                Todas las habitaciones • Fin de semana
+                            </p>
+
+                            <div class="flex items-baseline gap-1">
+                                <span class="text-3xl font-bold text-sunset"
+                                    >$8,500</span
+                                >
+                                <span class="text-sm text-night/50">MXN</span>
+                            </div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Fechas -->
+            <div>
+                <label class="block text-sm font-semibold text-night mb-3 flex items-center gap-2">
+                    <Calendar class="w-4 h-4" />
+                    Selecciona tu Fin de Semana
+                </label>
+                <p class="text-sm text-night/60 mb-4">
+                    Solo aceptamos reservas de fin de semana completo (Viernes 4PM a Domingo 2PM)
+                </p>
+
+                <div id="weekend-picker" class="space-y-4">
+                    <!-- Weekend selector will be rendered here -->
+                </div>
+
+                <input type="hidden" id="startDate" name="startDate" required />
+                <input type="hidden" id="endDate" name="endDate" required />
+            </div>
+
+            <!-- Número de Huéspedes -->
+            <div>
+                <label
+                    for="guests"
+                    class="block text-sm font-semibold text-night mb-2"
+                >
+                    <Users class="w-4 h-4 inline mr-1" />
+                    Número de Huéspedes
+                </label>
+                <input
+                    type="number"
+                    id="guests"
+                    name="guests"
+                    min="1"
+                    max="20"
+                    placeholder="¿Cuántas personas?"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-forest focus:border-transparent"
+                    required
+                />
+                <p class="text-xs text-night/50 mt-1">Máximo 20 personas</p>
+            </div>
+
+            <!-- Notas -->
+            <div>
+                <label
+                    for="notes"
+                    class="block text-sm font-semibold text-night mb-2"
+                >
+                    <FileText class="w-4 h-4 inline mr-1" />
+                    Notas o Solicitudes Especiales (Opcional)
+                </label>
+                <textarea
+                    id="notes"
+                    name="notes"
+                    rows="3"
+                    placeholder="¿Alguna solicitud especial?"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-forest focus:border-transparent resize-none"
+                ></textarea>
+            </div>
+
+            <!-- Total -->
+            <div
+                id="price-summary"
+                class="hidden bg-black/5 border-2 border-black/10 rounded-2xl p-6"
+            >
+                <div class="flex justify-between items-center">
+                    <div>
+                        <p class="text-sm font-semibold text-night/70">
+                            Total del Fin de Semana
+                        </p>
+                        <p class="text-xs text-night/50 mt-1">
+                            Viernes a Domingo (3 días, 2 noches)
+                        </p>
+                    </div>
+                    <div class="text-right">
+                        <p
+                            id="total-price"
+                            class="text-4xl font-bold text-black"
+                        >
+                            $0
+                        </p>
+                        <p class="text-xs text-night/50">MXN</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Error/Success Messages -->
+            <div id="booking-message" class="hidden rounded-xl p-4"></div>
+
+            <!-- Submit Button -->
+            <div class="pt-4 border-t border-gray-200">
+                <button
+                    type="submit"
+                    id="submit-btn"
+                    class="w-full py-5 bg-black text-white rounded-2xl font-bold text-lg hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                >
+                    Confirmar Reserva
+                </button>
+
+                <p class="text-xs text-center text-night/50 mt-4">
+                    Tu reserva estará pendiente de confirmación. Te
+                    contactaremos para finalizar los detalles.
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    const form = document.getElementById("booking-form") as HTMLFormElement;
+    const submitBtn = document.getElementById(
+        "submit-btn",
+    ) as HTMLButtonElement;
+    const messageDiv = document.getElementById(
+        "booking-message",
+    ) as HTMLDivElement;
+    const priceSummary = document.getElementById(
+        "price-summary",
+    ) as HTMLDivElement;
+    const totalPriceEl = document.getElementById(
+        "total-price",
+    ) as HTMLParagraphElement;
+    const tipoInputs = document.querySelectorAll(
+        'input[name="tipo"]',
+    ) as NodeListOf<HTMLInputElement>;
+    const startDateInput = document.getElementById("startDate") as HTMLInputElement;
+    const endDateInput = document.getElementById("endDate") as HTMLInputElement;
+    const weekendPicker = document.getElementById("weekend-picker") as HTMLDivElement;
+
+    let selectedWeekend: { friday: Date; sunday: Date } | null = null;
+    let currentMonth = new Date();
+    let occupiedDates: string[] = [];
+
+    // Fetch occupied dates
+    async function fetchOccupiedDates() {
+        try {
+            const response = await fetch("/api/bookings/available");
+            const data = await response.json();
+            occupiedDates = data.occupiedDates || [];
+            renderWeekendPicker();
+        } catch (error) {
+            console.error("Error fetching occupied dates:", error);
+            renderWeekendPicker();
+        }
+    }
+
+    // Check if date is occupied
+    function isDateOccupied(date: Date): boolean {
+        const dateStr = date.toISOString().split('T')[0];
+        return occupiedDates.includes(dateStr);
+    }
+
+    // Get all weekends in a month
+    function getWeekendsInMonth(date: Date): Array<{ friday: Date; sunday: Date; available: boolean }> {
+        const year = date.getFullYear();
+        const month = date.getMonth();
+        const weekends: Array<{ friday: Date; sunday: Date; available: boolean }> = [];
+
+        const firstDay = new Date(year, month, 1);
+        const lastDay = new Date(year, month + 1, 0);
+
+        for (let day = firstDay; day <= lastDay; day.setDate(day.getDate() + 1)) {
+            if (day.getDay() === 5) { // Friday
+                const friday = new Date(day);
+                const saturday = new Date(friday);
+                saturday.setDate(saturday.getDate() + 1);
+                const sunday = new Date(friday);
+                sunday.setDate(sunday.getDate() + 2);
+
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                const available = friday >= today &&
+                    !isDateOccupied(friday) &&
+                    !isDateOccupied(saturday) &&
+                    !isDateOccupied(sunday);
+
+                weekends.push({ friday: new Date(friday), sunday: new Date(sunday), available });
+            }
+        }
+
+        return weekends;
+    }
+
+    // Format date
+    function formatDate(date: Date, format: string): string {
+        const months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+        const days = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+
+        if (format === 'month-year') {
+            return `${months[date.getMonth()]} ${date.getFullYear()}`;
+        } else if (format === 'short') {
+            return `${days[date.getDay()]} ${date.getDate()} ${months[date.getMonth()].slice(0, 3)}`;
+        }
+        return `${date.getDate()} de ${months[date.getMonth()]}`;
+    }
+
+    // Render weekend picker
+    function renderWeekendPicker() {
+        const weekends = getWeekendsInMonth(currentMonth);
+
+        weekendPicker.innerHTML = `
+            <div class="bg-white rounded-2xl border-2 border-gray-200 overflow-hidden">
+                <!-- Header -->
+                <div class="flex items-center justify-between p-4 bg-gray-50 border-b border-gray-200">
+                    <button type="button" id="prev-month" class="p-2 hover:bg-gray-200 rounded-lg transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                        </svg>
+                    </button>
+                    <h3 class="text-lg font-bold text-night capitalize">
+                        ${formatDate(currentMonth, 'month-year')}
+                    </h3>
+                    <button type="button" id="next-month" class="p-2 hover:bg-gray-200 rounded-lg transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Weekends List -->
+                <div class="p-4 space-y-3">
+                    ${weekends.length === 0 ? `
+                        <p class="text-center text-night/60 py-8">
+                            No hay fines de semana disponibles en este mes
+                        </p>
+                    ` : weekends.map((weekend, index) => {
+                        const isSelected = selectedWeekend &&
+                            selectedWeekend.friday.getTime() === weekend.friday.getTime();
+
+                        return `
+                            <button
+                                type="button"
+                                data-weekend-index="${index}"
+                                class="w-full p-4 rounded-xl border-2 text-left transition-all ${
+                                    isSelected
+                                        ? "border-black bg-black text-white"
+                                        : weekend.available
+                                        ? "border-gray-200 hover:border-black"
+                                        : "border-gray-200 bg-gray-50 opacity-50 cursor-not-allowed"
+                                }"
+                                ${!weekend.available ? 'disabled' : ''}
+                            >
+                                <div class="flex items-center justify-between">
+                                    <div class="flex-1">
+                                        <div class="flex items-center gap-2 mb-1">
+                                            <svg class="w-4 h-4 ${isSelected ? 'text-white' : weekend.available ? 'text-black' : 'text-gray-400'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                            </svg>
+                                            <span class="font-semibold">
+                                                ${weekend.friday.getDate()} - ${weekend.sunday.getDate()} de ${formatDate(weekend.friday, 'date')}
+                                            </span>
+                                        </div>
+                                        <p class="text-sm ${isSelected ? 'text-white/80' : 'text-night/60'}">
+                                            ${formatDate(weekend.friday, 'short')} (4:00 PM) → ${formatDate(weekend.sunday, 'short')} (2:00 PM)
+                                        </p>
+                                    </div>
+                                    ${!weekend.available ? `
+                                        <span class="text-xs font-semibold text-red-600 bg-red-100 px-3 py-1 rounded-full">
+                                            Ocupado
+                                        </span>
+                                    ` : ''}
+                                </div>
+                            </button>
+                        `;
+                    }).join('')}
+                </div>
+            </div>
+        `;
+
+        // Add event listeners
+        const prevBtn = document.getElementById('prev-month');
+        const nextBtn = document.getElementById('next-month');
+
+        prevBtn?.addEventListener('click', () => {
+            currentMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1);
+            renderWeekendPicker();
+        });
+
+        nextBtn?.addEventListener('click', () => {
+            currentMonth = new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1);
+            renderWeekendPicker();
+        });
+
+        // Weekend selection
+        weekends.forEach((weekend, index) => {
+            if (weekend.available) {
+                const btn = weekendPicker.querySelector(`[data-weekend-index="${index}"]`);
+                btn?.addEventListener('click', () => {
+                    selectedWeekend = weekend;
+                    startDateInput.value = weekend.friday.toISOString().split('T')[0];
+                    endDateInput.value = weekend.sunday.toISOString().split('T')[0];
+                    renderWeekendPicker();
+                    updatePrice();
+                });
+            }
+        });
+    }
+
+    // Initialize
+    fetchOccupiedDates();
+
+    // Update price when tipo changes
+    tipoInputs.forEach((input) => {
+        input.addEventListener("change", updatePrice);
+    });
+
+    function updatePrice() {
+        const selectedTipo = document.querySelector(
+            'input[name="tipo"]:checked',
+        ) as HTMLInputElement;
+
+        if (selectedTipo) {
+            const prices = {
+                baja: 5499,
+                completa: 8500,
+            };
+
+            const price = prices[selectedTipo.value as keyof typeof prices];
+            totalPriceEl.textContent = `$${price.toLocaleString("es-MX")}`;
+
+            priceSummary.classList.remove("hidden");
+        }
+    }
+
+    function showMessage(message: string, isError: boolean = false) {
+        messageDiv.textContent = message;
+        messageDiv.className = `rounded-xl p-4 ${isError ? "bg-red-100 text-red-800" : "bg-green-100 text-green-800"}`;
+        messageDiv.classList.remove("hidden");
+    }
+
+    function hideMessage() {
+        messageDiv.classList.add("hidden");
+    }
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        hideMessage();
+
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Procesando...";
+
+        const formData = new FormData(form);
+        const data = {
+            tipo: formData.get("tipo"),
+            startDate: formData.get("startDate"),
+            endDate: formData.get("endDate"),
+            guests: parseInt(formData.get("guests") as string),
+            notes: formData.get("notes") || "",
+        };
+
+        try {
+            const response = await fetch("/api/bookings/create", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data),
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                showMessage(
+                    "¡Reserva creada exitosamente! Revisa tu correo para la confirmación.",
+                    false,
+                );
+                form.reset();
+                priceSummary.classList.add("hidden");
+
+                // Redirect to mis-reservas after 2 seconds
+                setTimeout(() => {
+                    window.location.href = "/mis-reservas";
+                }, 2000);
+            } else {
+                showMessage(result.error || "Error al crear la reserva", true);
+            }
+        } catch (error) {
+            showMessage("Error al conectar con el servidor", true);
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Confirmar Reserva";
+        }
+    });
+</script>

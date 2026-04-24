@@ -1,0 +1,205 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navigation from '../components/Navigation.astro';
+import Footer from '../components/Footer.astro';
+import { getUserFromCookies } from '../lib/auth';
+import { db, Bookings, eq } from 'astro:db';
+import { Calendar, Users, MapPin, Clock } from 'lucide-astro';
+
+const user = getUserFromCookies(Astro.cookies);
+
+// Si no está autenticado, redirigir a login
+if (!user) {
+    return Astro.redirect('/login?redirect=/mis-reservas');
+}
+
+// Obtener reservas del usuario
+const bookings = await db
+    .select()
+    .from(Bookings)
+    .where(eq(Bookings.userId, user.userId));
+
+// Ordenar por fecha de creación (más reciente primero)
+bookings.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+
+// Función para formatear fecha
+function formatDate(date: Date): string {
+    return new Date(date).toLocaleDateString('es-MX', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+}
+
+// Función para obtener el badge de estado
+function getStatusBadge(status: string) {
+    const badges = {
+        'pendiente_confirmacion': { text: 'Pendiente', class: 'bg-yellow-100 text-yellow-800' },
+        'confirmada': { text: 'Confirmada', class: 'bg-green-100 text-green-800' },
+        'cancelada': { text: 'Cancelada', class: 'bg-red-100 text-red-800' }
+    };
+    return badges[status as keyof typeof badges] || { text: status, class: 'bg-gray-100 text-gray-800' };
+}
+
+// Función para obtener el nombre del tipo
+function getTipoName(tipo: string) {
+    return tipo === 'baja' ? 'Planta Baja (Paraíso)' : 'Cabaña Completa';
+}
+---
+
+<Layout title="Mis Reservas - Quinta El Cielo">
+    <Navigation slot="nav" />
+
+    <section class="py-20 md:py-32 bg-gradient-to-b from-bone to-white min-h-screen">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Header -->
+            <div class="mb-12">
+                <h1 class="text-4xl md:text-5xl font-bold text-night mb-4">
+                    Mis Reservas
+                </h1>
+                <p class="text-lg text-night/70">
+                    Gestiona tus reservaciones en Quinta El Cielo
+                </p>
+            </div>
+
+            <!-- Bookings List -->
+            {bookings.length === 0 ? (
+                <div class="bg-white rounded-2xl shadow-lg p-12 text-center">
+                    <div class="w-24 h-24 bg-forest/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <Calendar class="w-12 h-12 text-forest" />
+                    </div>
+                    <h3 class="text-2xl font-bold text-night mb-3">
+                        No tienes reservas aún
+                    </h3>
+                    <p class="text-night/60 mb-8">
+                        ¡Empieza tu aventura en las alturas! Reserva tu estadía en Quinta El Cielo.
+                    </p>
+                    <a
+                        href="/reservar"
+                        class="inline-block px-8 py-4 bg-gradient-sunset text-white rounded-full font-bold hover:shadow-xl hover:scale-105 transition-all duration-300"
+                    >
+                        Hacer una Reserva
+                    </a>
+                </div>
+            ) : (
+                <div class="space-y-6">
+                    {bookings.map((booking) => {
+                        const statusBadge = getStatusBadge(booking.status);
+                        const isPending = booking.status === 'pendiente_confirmacion';
+                        const isConfirmed = booking.status === 'confirmada';
+
+                        return (
+                            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                                <div class="p-6 md:p-8">
+                                    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
+                                        <div class="flex-1">
+                                            <div class="flex items-center gap-3 mb-3">
+                                                <h3 class="text-2xl font-bold text-night">
+                                                    {getTipoName(booking.tipo)}
+                                                </h3>
+                                                <span class={`px-3 py-1 rounded-full text-xs font-semibold ${statusBadge.class}`}>
+                                                    {statusBadge.text}
+                                                </span>
+                                            </div>
+                                            <p class="text-sm text-night/50">
+                                                Reserva #{booking.id} • Creada el {formatDate(booking.createdAt)}
+                                            </p>
+                                        </div>
+
+                                        <div class="text-right">
+                                            <p class="text-sm text-night/60 mb-1">Total</p>
+                                            <p class="text-3xl font-bold text-forest">
+                                                ${booking.totalPrice?.toLocaleString('es-MX') || '0'}
+                                            </p>
+                                            <p class="text-xs text-night/50">MXN</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                                        <div class="flex items-start gap-3">
+                                            <Calendar class="w-5 h-5 text-forest mt-1 flex-shrink-0" />
+                                            <div>
+                                                <p class="text-sm font-semibold text-night mb-1">Check-in</p>
+                                                <p class="text-sm text-night/70">{formatDate(booking.startDate)}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex items-start gap-3">
+                                            <Calendar class="w-5 h-5 text-forest mt-1 flex-shrink-0" />
+                                            <div>
+                                                <p class="text-sm font-semibold text-night mb-1">Check-out</p>
+                                                <p class="text-sm text-night/70">{formatDate(booking.endDate)}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="flex items-start gap-3">
+                                            <Users class="w-5 h-5 text-forest mt-1 flex-shrink-0" />
+                                            <div>
+                                                <p class="text-sm font-semibold text-night mb-1">Huéspedes</p>
+                                                <p class="text-sm text-night/70">{booking.guests} personas</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {booking.notes && (
+                                        <div class="bg-bone/50 rounded-xl p-4 mb-6">
+                                            <p class="text-sm font-semibold text-night mb-2">Notas:</p>
+                                            <p class="text-sm text-night/70">{booking.notes}</p>
+                                        </div>
+                                    )}
+
+                                    {isPending && (
+                                        <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-4">
+                                            <div class="flex items-start gap-3">
+                                                <Clock class="w-5 h-5 text-yellow-600 mt-0.5 flex-shrink-0" />
+                                                <div>
+                                                    <p class="text-sm font-semibold text-yellow-800 mb-1">
+                                                        Pendiente de Confirmación
+                                                    </p>
+                                                    <p class="text-sm text-yellow-700">
+                                                        Nos pondremos en contacto contigo dentro de las próximas 24 horas para confirmar tu reserva.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {isConfirmed && (
+                                        <div class="bg-green-50 border border-green-200 rounded-xl p-4">
+                                            <div class="flex items-start gap-3">
+                                                <MapPin class="w-5 h-5 text-green-600 mt-0.5 flex-shrink-0" />
+                                                <div>
+                                                    <p class="text-sm font-semibold text-green-800 mb-1">
+                                                        ¡Reserva Confirmada!
+                                                    </p>
+                                                    <p class="text-sm text-green-700">
+                                                        Tu reserva ha sido confirmada. Te esperamos en Sierra de Arteaga.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+            )}
+
+            <!-- New Booking Button -->
+            {bookings.length > 0 && (
+                <div class="mt-12 text-center">
+                    <a
+                        href="/reservar"
+                        class="inline-block px-8 py-4 bg-gradient-sunset text-white rounded-full font-bold hover:shadow-xl hover:scale-105 transition-all duration-300"
+                    >
+                        Hacer una Nueva Reserva
+                    </a>
+                </div>
+            )}
+        </div>
+    </section>
+
+    <Footer slot="footer" />
+</Layout>

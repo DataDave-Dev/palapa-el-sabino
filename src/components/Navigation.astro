@@ -1,480 +1,227 @@
 ---
-import { Image } from 'astro:assets';
+import { Mountain, Menu, X, User, Calendar, LogOut, Phone } from '@lucide/astro';
 import { getUserFromCookies } from '../lib/auth';
-import LogoPalapa from '../../public/logo.png'
 
 const user = getUserFromCookies(Astro.cookies);
 const currentPath = Astro.url.pathname;
 
 const navLinks = [
-  { href: '/cabana', label: 'Experiencia' },
-  { href: '/precios', label: 'Precios' },
-  { href: '/ubicacion', label: 'Ubicación' }
+    { href: '/#cabana', label: 'La Cabaña' },
+    { href: '/#amenidades', label: 'Amenidades' },
+    { href: '/#precios', label: 'Precios' },
+    { href: '/#galeria', label: 'Galería' },
+    { href: '/#ubicacion', label: 'Ubicación' }
 ];
 ---
 
-<nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 nav-container">
-  <div class="container-fluid">
-    <div class="nav-inner">
-      <!-- Logo -->
-      <a href="/" class="logo-link">
-        <div class="logo-container">
-          <Image src={LogoPalapa} alt="Logo de la Palapa El Sabino" width="120" height="80" />
+<nav id="main-nav" class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-lg border-b border-gray-200/50 transition-all duration-300 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-20">
+            <!-- Logo -->
+            <a href="/" class="flex items-center gap-3 group">
+                <img
+                    src="/logo.png"
+                    alt="Quinta El Cielo Logo"
+                    class="w-12 h-12 object-contain"
+                />
+                <div class="hidden md:block">
+                    <div class="font-bold text-lg text-night group-hover:text-forest transition-colors duration-300">
+                        Quinta El Cielo
+                    </div>
+                    <div class="text-xs text-night/50 -mt-1">Sierra de Arteaga</div>
+                </div>
+            </a>
+
+            <!-- Desktop Navigation -->
+            <div class="hidden lg:flex items-center gap-1">
+                {navLinks.map((link) => (
+                    <a
+                        href={link.href}
+                        class="relative px-4 py-2 text-sm font-medium text-night/70 hover:text-forest transition-colors duration-200 group"
+                    >
+                        <span class="relative z-10">{link.label}</span>
+                        <div class="absolute inset-0 bg-forest/5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
+                    </a>
+                ))}
+            </div>
+
+            <!-- User Menu / Login -->
+            <div class="hidden lg:flex items-center gap-3">
+                <a href="tel:+528110000000" class="flex items-center gap-2 px-4 py-2 text-sm text-night/60 hover:text-forest transition-colors group">
+                    <Phone class="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" />
+                    <span class="font-medium">Contacto</span>
+                </a>
+
+                {user ? (
+                    <div class="relative group">
+                        <button class="flex items-center gap-2 px-4 py-2 bg-bone rounded-full border border-forest/10 hover:border-forest/30 transition-all duration-200 group-hover:shadow-md">
+                            <div class="w-8 h-8 bg-gradient-forest rounded-full flex items-center justify-center">
+                                <User class="w-4 h-4 text-bone" />
+                            </div>
+                            <span class="text-sm font-medium text-night">{user.nombre.split(" ")[0]}</span>
+                        </button>
+
+                        <!-- Dropdown Menu -->
+                        <div class="absolute right-0 mt-3 w-52 bg-white rounded-2xl shadow-xl border border-gray-100 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 overflow-hidden">
+                            <div class="p-3 bg-gradient-to-r from-forest/5 to-sunset/5 border-b border-gray-100">
+                                <p class="text-sm font-semibold text-night">{user.nombre}</p>
+                                <p class="text-xs text-night/50">{user.email}</p>
+                            </div>
+                            <a href="/mis-reservas" class="flex items-center gap-3 px-4 py-3 text-sm text-night hover:bg-bone transition-colors group/item">
+                                <Calendar class="w-4 h-4 text-forest group-hover/item:scale-110 transition-transform" />
+                                <span class="font-medium">Mis reservas</span>
+                            </a>
+                            <form action="/api/auth/logout" method="POST" class="border-t border-gray-100">
+                                <button type="submit" class="w-full flex items-center gap-3 px-4 py-3 text-sm text-night hover:bg-red-50 transition-colors text-left group/item">
+                                    <LogOut class="w-4 h-4 text-red-500 group-hover/item:translate-x-1 transition-transform" />
+                                    <span class="font-medium text-red-600">Cerrar sesión</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                ) : (
+                    <>
+                        <a href="/login" class="px-4 py-2 text-sm font-medium text-night/70 hover:text-forest transition-colors">
+                            Iniciar sesión
+                        </a>
+                        <a href="/reservar" class="px-6 py-2.5 bg-gradient-sunset text-white bg-black rounded-full text-sm font-semibold hover:shadow-lg hover:scale-105 transition-all duration-300">
+                            Reservar ahora
+                        </a>
+                    </>
+                )}
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button
+                id="mobile-menu-btn"
+                class="lg:hidden p-2.5 rounded-lg bg-bone hover:bg-gray-100 transition-colors"
+                aria-label="Toggle menu"
+            >
+                <Menu id="menu-icon" class="w-6 h-6 text-night" />
+                <X id="close-icon" class="w-6 h-6 text-night hidden" />
+            </button>
         </div>
-      </a>
-
-      <!-- Desktop Navigation -->
-      <div class="nav-links">
-        {navLinks.map(link => (
-          <a
-            href={link.href}
-            class:list={[
-              'nav-link',
-              currentPath === link.href && 'nav-link--active'
-            ]}
-          >
-            {link.label}
-          </a>
-        ))}
-      </div>
-
-      <!-- CTA -->
-      <div class="nav-actions">
-        {user ? (
-          <>
-            <a href="/perfil" class="user-badge">
-              {user.nombre.split(' ')[0]}
-            </a>
-            <a href="/reservar" class="cta-button">
-              Reservar
-            </a>
-          </>
-        ) : (
-          <>
-            <a href="/login" class="nav-link">
-              Acceder
-            </a>
-            <a href="/reservar" class="cta-button">
-              Reservar
-            </a>
-          </>
-        )}
-      </div>
-
-      <!-- Mobile Menu Button -->
-      <button class="mobile-menu-btn" aria-label="Menu">
-        <span></span>
-        <span></span>
-      </button>
     </div>
-  </div>
 
-  <!-- Mobile Menu -->
-  <div class="mobile-menu">
-    <div class="mobile-menu-content">
-      <div class="mobile-links">
-        {navLinks.map(link => (
-          <a
-            href={link.href}
-            class:list={[
-              'mobile-link',
-              currentPath === link.href && 'mobile-link--active'
-            ]}
-          >
-            {link.label}
-          </a>
-        ))}
-      </div>
-      <div class="mobile-actions">
-        {user ? (
-          <>
-            <a href="/perfil" class="mobile-link">Perfil</a>
-            <form action="/api/auth/logout" method="POST">
-              <button type="submit" class="mobile-link">Salir</button>
-            </form>
-          </>
-        ) : (
-          <a href="/login" class="mobile-link">Acceder</a>
-        )}
-        <a href="/reservar" class="mobile-cta">Reservar Ahora</a>
-      </div>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="lg:hidden hidden bg-white border-t border-gray-200 shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 py-6 space-y-1">
+            {navLinks.map((link) => (
+                <a
+                    href={link.href}
+                    class="block px-4 py-3 text-base font-medium text-night/70 hover:text-forest hover:bg-forest/5 rounded-xl transition-all duration-200 active:scale-95"
+                >
+                    {link.label}
+                </a>
+            ))}
+
+            <div class="pt-4 mt-4 border-t border-gray-200 space-y-2">
+                {user ? (
+                    <>
+                        <div class="px-4 py-2 bg-gradient-to-r from-forest/5 to-sunset/5 rounded-xl mb-3">
+                            <p class="text-sm font-semibold text-night">{user.nombre}</p>
+                            <p class="text-xs text-night/50">{user.email}</p>
+                        </div>
+                        <a href="/mis-reservas" class="flex items-center gap-3 px-4 py-3 text-base font-medium text-night/70 hover:text-forest hover:bg-forest/5 rounded-xl transition-colors">
+                            <Calendar class="w-5 h-5" />
+                            Mis reservas
+                        </a>
+                        <form action="/api/auth/logout" method="POST">
+                            <button type="submit" class="w-full flex items-center gap-3 px-4 py-3 text-base font-medium text-red-600 hover:bg-red-50 rounded-xl transition-colors text-left">
+                                <LogOut class="w-5 h-5" />
+                                Cerrar sesión
+                            </button>
+                        </form>
+                    </>
+                ) : (
+                    <>
+                        <a href="/login" class="block px-4 py-3 text-center text-base font-medium text-night/70 hover:bg-gray-100 rounded-xl transition-colors">
+                            Iniciar sesión
+                        </a>
+                        <a href="/reservar" class="block px-4 py-3 text-center bg-gradient-sunset text-white rounded-xl font-semibold hover:shadow-lg transition-all active:scale-95">
+                            Reservar ahora
+                        </a>
+                    </>
+                )}
+            </div>
+        </div>
     </div>
-  </div>
 </nav>
 
 <style>
-  /* Navigation Container */
-  .nav-container {
-    background: rgba(255, 255, 255, 0.9);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .nav-container.scrolled {
-    background: rgba(255, 255, 255, 0.98);
-    box-shadow: 0 1px 40px rgba(0, 0, 0, 0.03);
-  }
-
-  .nav-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 88px;
-    transition: height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .scrolled .nav-inner {
-    height: 68px;
-  }
-
-  /* Logo */
-  .logo-link {
-    display: flex;
-    align-items: center;
-    color: #000;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-  }
-
-  .logo-container {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    padding: 0.5rem 0;
-  }
-
-  .logo-image {
-    width: 48px;
-    height: 48px;
-    object-fit: contain;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .scrolled .logo-image {
-    width: 40px;
-    height: 40px;
-  }
-
-  .logo-text-group {
-    display: flex;
-    flex-direction: column;
-    line-height: 1;
-  }
-
-  .logo-text {
-    font-size: 1.375rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    transition: all 0.3s;
-  }
-
-  .scrolled .logo-text {
-    font-size: 1.125rem;
-  }
-
-  .logo-subtitle {
-    font-size: 0.625rem;
-    font-weight: 400;
-    letter-spacing: 0.15em;
-    color: #737373;
-    margin-top: 2px;
-    transition: all 0.3s;
-  }
-
-  .scrolled .logo-subtitle {
-    opacity: 0;
-    transform: translateY(-5px);
-  }
-
-  .logo-link:hover .logo-image {
-    transform: rotate(5deg) scale(1.1);
-  }
-
-  .logo-link:hover .logo-text {
-    letter-spacing: 0;
-  }
-
-  .logo-link:hover {
-    opacity: 1;
-  }
-
-  /* Desktop Navigation */
-  .nav-links {
-    display: none;
-    align-items: center;
-    gap: 3rem;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  @media (min-width: 1024px) {
-    .nav-links {
-      display: flex;
-    }
-  }
-
-  .nav-link {
-    font-size: 0.938rem;
-    font-weight: 400;
-    color: #737373;
-    position: relative;
-    transition: color 0.2s;
-    letter-spacing: 0.01em;
-  }
-
-  .nav-link:hover {
-    color: #000;
-    opacity: 1;
-  }
-
-  .nav-link--active {
-    color: #000;
-    font-weight: 500;
-  }
-
-  .nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    background: #000;
-    transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .nav-link:hover::after,
-  .nav-link--active::after {
-    width: 100%;
-  }
-
-  /* Nav Actions */
-  .nav-actions {
-    display: none;
-    align-items: center;
-    gap: 1.5rem;
-  }
-
-  @media (min-width: 1024px) {
-    .nav-actions {
-      display: flex;
-    }
-  }
-
-  .user-badge {
-    font-size: 0.938rem;
-    font-weight: 500;
-    color: #000;
-    padding: 0.5rem 1rem;
-    border-radius: 100px;
-    background: #f5f5f5;
-    transition: all 0.2s;
-  }
-
-  .user-badge:hover {
-    background: #e5e5e5;
-    opacity: 1;
-  }
-
-  .cta-button {
-    font-size: 0.938rem;
-    font-weight: 500;
-    color: #fff;
-    background: #000;
-    padding: 0.625rem 1.5rem;
-    border-radius: 100px;
-    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .cta-button:hover {
-    background: #171717;
-    transform: translateY(-1px);
-    opacity: 1;
-  }
-
-  /* Mobile Menu Button */
-  .mobile-menu-btn {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 24px;
-    height: 24px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-  }
-
-  @media (min-width: 1024px) {
-    .mobile-menu-btn {
-      display: none;
-    }
-  }
-
-  .mobile-menu-btn span {
-    display: block;
-    width: 20px;
-    height: 1.5px;
-    background: #000;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .mobile-menu-btn span:first-child {
-    transform: translateY(-3px);
-  }
-
-  .mobile-menu-btn span:last-child {
-    transform: translateY(3px);
-  }
-
-  .mobile-menu-btn.active span:first-child {
-    transform: rotate(45deg);
-  }
-
-  .mobile-menu-btn.active span:last-child {
-    transform: rotate(-45deg);
-  }
-
-  /* Mobile Menu */
-  .mobile-menu {
-    position: fixed;
-    top: 80px;
-    left: 0;
-    right: 0;
-    background: #fff;
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
-    transform: translateY(-100%);
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    max-height: calc(100vh - 80px);
-    overflow-y: auto;
-  }
-
-  .mobile-menu.active {
-    transform: translateY(0);
-    opacity: 1;
-    visibility: visible;
-  }
-
-  .mobile-menu-content {
-    padding: 2rem 1.5rem;
-  }
-
-  .mobile-links {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    margin-bottom: 2rem;
-  }
-
-  .mobile-link {
-    font-size: 1.125rem;
-    font-weight: 400;
-    color: #737373;
-    padding: 1rem 0;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-    transition: color 0.2s;
-  }
-
-  .mobile-link:hover {
-    color: #000;
-  }
-
-  .mobile-link--active {
-    color: #000;
-    font-weight: 500;
-  }
-
-  .mobile-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding-top: 1rem;
-  }
-
-  .mobile-cta {
-    display: inline-block;
-    text-align: center;
-    font-size: 1rem;
-    font-weight: 500;
-    color: #fff;
-    background: #000;
-    padding: 1rem 2rem;
-    border-radius: 100px;
-    margin-top: 1rem;
-  }
-
-  @media (max-width: 768px) {
-    .nav-inner {
-      height: 72px;
+    #main-nav {
+        z-index: 9999;
     }
 
-    .scrolled .nav-inner {
-      height: 64px;
+    #main-nav.scrolled {
+        background: rgba(255, 255, 255, 0.98);
+        box-shadow: 0 8px 32px rgba(15, 30, 61, 0.08);
+        border-bottom-color: rgba(45, 80, 22, 0.1);
     }
 
-    .mobile-menu {
-      top: 72px;
+    /* Animate mobile menu */
+    #mobile-menu {
+        animation: slideDown 0.3s ease-out;
     }
 
-    .logo-image {
-      width: 40px;
-      height: 40px;
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
-
-    .scrolled .logo-image {
-      width: 36px;
-      height: 36px;
-    }
-
-    .logo-text {
-      font-size: 1.125rem;
-    }
-
-    .logo-subtitle {
-      display: none;
-    }
-  }
 </style>
 
 <script>
-  // Scroll behavior
-  let lastScrollY = 0;
-  const nav = document.getElementById('main-nav');
+    // Handle scroll
+    const nav = document.getElementById('main-nav');
 
-  window.addEventListener('scroll', () => {
-    const currentScrollY = window.scrollY;
-
-    if (currentScrollY > 50) {
-      nav?.classList.add('scrolled');
-    } else {
-      nav?.classList.remove('scrolled');
-    }
-
-    lastScrollY = currentScrollY;
-  });
-
-  // Mobile menu toggle
-  const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-  const mobileMenu = document.querySelector('.mobile-menu');
-
-  mobileMenuBtn?.addEventListener('click', () => {
-    mobileMenuBtn.classList.toggle('active');
-    mobileMenu?.classList.toggle('active');
-    document.body.style.overflow = mobileMenu?.classList.contains('active') ? 'hidden' : '';
-  });
-
-  // Close mobile menu on link click
-  document.querySelectorAll('.mobile-link').forEach(link => {
-    link.addEventListener('click', () => {
-      mobileMenuBtn?.classList.remove('active');
-      mobileMenu?.classList.remove('active');
-      document.body.style.overflow = '';
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            nav?.classList.add('scrolled');
+        } else {
+            nav?.classList.remove('scrolled');
+        }
     });
-  });
+
+    // Handle mobile menu
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const menuIcon = document.getElementById('menu-icon');
+    const closeIcon = document.getElementById('close-icon');
+
+    mobileMenuBtn?.addEventListener('click', () => {
+        const isOpen = !mobileMenu?.classList.contains('hidden');
+
+        if (isOpen) {
+            mobileMenu?.classList.add('hidden');
+            menuIcon?.classList.remove('hidden');
+            closeIcon?.classList.add('hidden');
+        } else {
+            mobileMenu?.classList.remove('hidden');
+            menuIcon?.classList.add('hidden');
+            closeIcon?.classList.remove('hidden');
+        }
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Close mobile menu if open
+                if (!mobileMenu?.classList.contains('hidden')) {
+                    mobileMenu?.classList.add('hidden');
+                    menuIcon?.classList.remove('hidden');
+                    closeIcon?.classList.add('hidden');
+                }
+            }
+        });
+    });
 </script>
